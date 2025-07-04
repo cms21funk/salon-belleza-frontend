@@ -1,6 +1,6 @@
 //PasoServicio.jsx
 import { useState } from 'react';
-import carruselImg from '../../assets/images/carrusel1.png';
+import carruselImg from '/images/carrusel1.png';
 
 // Actualiza los nombres aquí para que coincidan con la base de datos
 const servicios = ['Peluqueria', 'Manicura', 'Depiladora', 'Esteticista', 'Pestanas y Cejas'];

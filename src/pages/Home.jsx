@@ -17,7 +17,7 @@ const Home = () => {
           {/* Imagen destacada del salón */}
           <div className="col-md-6 text-center">
             <img
-              src="/src/assets/images/salon-frontal1.png"
+              src="/images/salon-frontal1.png"
               alt="Salón de Belleza Sary Salgado"
               className="img-fluid salon-img zoom-shadow"
             />
