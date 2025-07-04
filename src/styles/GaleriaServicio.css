@@ -1,0 +1,40 @@
+/* GaleriaServicio.css */
+
+.galeria-servicio-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  overflow-y: auto;
+  padding: 40px 20px;
+}
+
+.galeria-servicio-contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.galeria-servicio-contenido h3 {
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.galeria-servicio-contenido img {
+  border: 2px solid #fff;
+  transition: transform 0.3s ease;
+}
+
+.galeria-servicio-contenido img:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}

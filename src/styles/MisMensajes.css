@@ -1,0 +1,78 @@
+.perfil-contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  column-gap: 1rem; /* Espacio mínimo entre datos y foto */
+  row-gap: 1rem;
+}
+
+.perfil-info {
+  flex: 1;
+  text-align: left;
+}
+
+.perfil-info h3 {
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+.perfil-info p,
+.perfil-info li {
+  font-size: 1.3rem;
+}
+
+.perfil-info h4,
+.perfil-info h5 {
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-top: 1rem;
+}
+
+.perfil-foto {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 6px solid white;
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+  
+}
+
+.perfil-info {
+  margin: 0;
+  padding: 0;
+}
+
+
+.table-dark th {
+  background-color: #222 !important;
+  color: #fff;
+  text-align: center;
+}
+
+.table-dark td {
+  background-color: #1a1a1a !important;
+  color: #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.check-btn {
+  cursor: pointer;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+}
+
+.check-btn:hover {
+  transform: scale(1.2);
+  color: #00ff91;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.check-btn.checked {
+  color: #00ff91;
+}

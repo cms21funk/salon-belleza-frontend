@@ -1,0 +1,72 @@
+.faq-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.faq-item {
+  background-color: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 0.7rem 1.5rem;
+  background-color: #f8d276;
+  color: #000;
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.2;
+  min-height: 60px;
+  transition: background-color 0.3s;
+}
+
+.faq-question:hover {
+  background-color: #ffe28a;
+}
+
+.faq-answer {
+  padding: 1.5rem;
+  background-color: #111;
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: justify;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.icon {
+  font-size: 1.3rem;
+  margin-left: 12px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.politicas-image {
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.politicas-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(255, 255, 0, 0.3);
+}

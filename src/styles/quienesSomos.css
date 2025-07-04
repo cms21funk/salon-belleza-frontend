@@ -1,0 +1,46 @@
+/* quienesSomos.css */
+
+.quienes-bg {
+  background-color: #111;
+  padding: 60px 20px;
+  color: #fff;
+}
+
+.quienes-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.quienes-container h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #f8e1c4;
+}
+
+.quienes-container p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  color: #ddd;
+}
+
+.quienes-img {
+  max-width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.quienes-img:hover {
+  transform: scale(1.02);
+}
+
+.quienes-carrusel {
+  max-width: 100%;
+  margin-top: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.1);
+}

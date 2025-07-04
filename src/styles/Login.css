@@ -1,0 +1,22 @@
+.login-container {
+  background-color: #000;
+  border: 3px solid gold;
+  border-radius: 20px;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 30px;
+  color: white;
+  box-shadow: 0 0 20px gold;
+  transition: all 0.3s ease-in-out;
+}
+
+.formulario-login input {
+  background-color: #222;
+  border: 1px solid #555;
+  color: white;
+}
+
+.formulario-login input:focus {
+  border-color: gold;
+  box-shadow: 0 0 5px gold;
+}

@@ -1,0 +1,137 @@
+/* Fondo global */
+body {
+  background-image: url('/src/assets/images/footer-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+}
+
+.app-bg {
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: white;
+}
+
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(255, 255, 0, 0.3);
+}
+
+/* Botón amarillo solo para casos específicos */
+.btn-warning {
+  background-color: #ffc107;
+  color: black;
+  border: none;
+}
+.btn-warning:hover {
+  background-color: #ffca2c;
+  transform: scale(1.05);
+}
+
+/* Botón éxito (verde) */
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  color: #fff;
+}
+.btn-success:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+/* Botón error (rojo) */
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+  color: #fff;
+}
+.btn-danger:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+/* Navbar y Footer negro */
+.navbar,
+footer {
+  background-color: #000 !important;
+  color: #fff;
+  border-top: 3px solid #ffc107;
+}
+
+/* Footer siempre pegado abajo */
+footer {
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Card Staff */
+.card-staff {
+  width: 180px;
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+}
+
+.card-staff:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(255, 255, 0, 0.3);
+}
+
+.card-staff img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid #222;
+}
+
+.card-staff h5 {
+  margin: 10px 0 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.card-staff p {
+  font-size: 13px;
+  margin: 5px 0 10px;
+}
+
+.card-staff button {
+  background-color: #f7c600;
+  border: none;
+  color: black;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-staff button:hover {
+  background-color: #ffd900;
+}
+
+.form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}

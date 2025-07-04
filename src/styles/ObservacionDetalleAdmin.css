@@ -1,0 +1,66 @@
+.card-staff {
+  background-color: #000;
+  border-radius: 20px;
+  padding: 1rem;
+  max-width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+ }
+.card-staff:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(255, 255, 0, 0.5);
+}
+.card-staff img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Grilla igual a la de Ranking Top 10 */
+.custom-table {
+  background-color: #121212;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(255, 255, 0, 0.15);
+}
+
+.custom-table th {
+  background-color: #1e1e1e;
+  color: #fdd835; /* Amarillo */
+  text-align: center;
+  vertical-align: middle;
+}
+
+.custom-table td {
+  background-color: #121212;
+  color: #fff;
+  vertical-align: middle;
+  text-align: center;
+  border-top: 1px solid #333;
+}
+
+.badge.bg-success {
+  background-color: #4caf50 !important;
+}
+
+.badge.bg-danger {
+  background-color: #f44336 !important;
+}
+
+.btn-warning {
+  background-color: #fdd835;
+  border: none;
+  color: black;
+}
+.btn-warning:hover {
+  background-color: #ffeb3b;
+  color: black;
+}
+
+.btn-danger {
+  background-color: #e53935;
+  border: none;
+}
+.btn-danger:hover {
+  background-color: #f44336;
+}
