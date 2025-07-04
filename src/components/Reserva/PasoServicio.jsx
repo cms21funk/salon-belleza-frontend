@@ -1,5 +1,6 @@
-// src/components/Reserva/PasoServicio.jsx
+//PasoServicio.jsx
 import { useState } from 'react';
+import carruselImg from '../../assets/images/carrusel1.png';
 
 // Actualiza los nombres aquí para que coincidan con la base de datos
 const servicios = ['Peluqueria', 'Manicura', 'Depiladora', 'Esteticista', 'Pestanas y Cejas'];
@@ -33,7 +34,7 @@ const PasoServicio = ({ avanzarPaso, actualizarFormulario }) => {
 
       {!mostrarImagenAbajo && (
         <img
-          src="/images/carrusel1.png"
+          src={carruselImg}
           alt="Carrusel 1"
           className="img-fluid rounded shadow"
           style={{ maxWidth: '650px', height: 'auto' }}
@@ -43,7 +44,7 @@ const PasoServicio = ({ avanzarPaso, actualizarFormulario }) => {
       {mostrarImagenAbajo && (
         <div className="mt-5">
           <img
-            src="/images/carrusel1.png"
+            src={carruselImg}
             alt="Carrusel 1"
             className="img-fluid rounded shadow"
             style={{ maxWidth: '650px', height: 'auto' }}
