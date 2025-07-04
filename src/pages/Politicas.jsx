@@ -1,7 +1,6 @@
 // src/pages/Politicas.jsx
 import { useState } from 'react';
 import '../styles/Politicas.css';
-import confianzaImage from '../assets/images/confianza-generada.png';
 
 // Preguntas frecuentes (FAQ) con sus respectivas respuestas
 const preguntas = [
@@ -35,14 +34,12 @@ const preguntas = [
 const Politicas = () => {
   const [activoIndex, setActivoIndex] = useState(null); // Estado para expandir/cerrar cada pregunta
 
-  // Alterna la visibilidad de la respuesta según índice
   const togglePregunta = (index) => {
     setActivoIndex(activoIndex === index ? null : index);
   };
 
   return (
     <div className="container text-white py-5">
-      {/* Encabezado de la sección */}
       <h2 className="text-center mb-4">Nuestras Políticas</h2>
       <p className="lead text-center">
         En Salón de Belleza Sary Salgado priorizamos la excelencia y el bienestar de nuestros clientes.
@@ -50,17 +47,16 @@ const Politicas = () => {
         Nuestro compromiso es ofrecer un servicio integral que invite a volver siempre con la misma confianza.
       </p>
 
-      {/* Imagen central */}
+      {/* Imagen central corregida */}
       <div className="text-center my-5">
         <img
-          src={confianzaImage}
+          src="/images/confianza-generada.png"
           alt="Confianza Calidad Servicio"
           className="img-fluid politicas-image"
           style={{ maxHeight: '300px' }}
         />
       </div>
 
-      {/* Sección de preguntas frecuentes */}
       <div className="faq-section">
         {preguntas.map((item, index) => (
           <div className="faq-item" key={index}>
@@ -72,7 +68,6 @@ const Politicas = () => {
               <span className="icon">{activoIndex === index ? '▲' : '▼'}</span>
             </button>
 
-            {/* Muestra la respuesta solo si está activa */}
             {activoIndex === index && (
               <div className="faq-answer">{item.respuesta}</div>
             )}
