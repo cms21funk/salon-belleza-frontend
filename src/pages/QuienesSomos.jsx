@@ -1,6 +1,4 @@
-// src/pages/QuienesSomos.jsx
 import '../styles/quienesSomos.css';
-import salonFrontal from '../assets/images/salon-frontal.png';
 
 const QuienesSomos = () => {
   return (
@@ -13,7 +11,7 @@ const QuienesSomos = () => {
           {/* Imagen del salón */}
           <div className="col-md-6 mb-4 mb-md-0">
             <img
-              src={salonFrontal}
+              src="/images/salon-frontal.png"
               alt="Salón de Belleza"
               className="img-fluid rounded shadow"
             />
