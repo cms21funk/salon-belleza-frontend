@@ -1,4 +1,4 @@
-// src/components/GaleriaServicio.jsx
+// src/components/GaleriaServicio.jsx 
 import { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../auth/useAuth';
@@ -12,7 +12,6 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
   const { usuario } = useAuth();
   const [likes, setLikes] = useState({});
 
-  // Cargar servicios según categoría seleccionada
   useEffect(() => {
     const cargarServicios = async () => {
       try {
@@ -27,7 +26,6 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
     cargarServicios();
   }, [servicio.id]);
 
-  // Registrar like del cliente
   const toggleLike = async (serv) => {
     if (!usuario || usuario.rol !== 'cliente') return;
 
@@ -54,7 +52,6 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
     }
   };
 
-  // Mostrar mensaje si no hay servicios disponibles
   if (!servicios.length) {
     return (
       <div className="text-center text-white py-5">
@@ -66,7 +63,6 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
     );
   }
 
-  // Mostrar detalle si se selecciona un servicio
   if (detalle) {
     return (
       <DetalleServicio
@@ -86,19 +82,17 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
   return (
     <div className="text-white py-5">
       <div className="container">
-        {/* Encabezado */}
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h3 className="text-white">Servicios disponibles</h3>
           <button onClick={onCerrar} className="btn btn-outline-light">Cerrar</button>
         </div>
 
-        {/* Galería de servicios */}
         <div className="row">
           {servicios.map(serv => (
             <div key={serv.id} className="col-md-6 col-lg-3 mb-4">
               <div className="card h-100 bg-black text-white shadow">
                 <img
-                  src={`http://localhost:3000/images/${serv.imagen}`}
+                  src={`/images/${serv.imagen}`}
                   className="card-img-top"
                   alt={serv.tipo}
                 />
@@ -107,7 +101,6 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
                   <p className="card-text">${serv.precio.toLocaleString()}</p>
                   <p className="fw-bold text-white">👩‍🎨 {serv.nombre_profesional}</p>
 
-                  {/* Like disponible solo para clientes */}
                   {usuario?.rol === 'cliente' && (
                     <div
                       className="mb-2"
@@ -118,7 +111,6 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
                     </div>
                   )}
 
-                  {/* Acciones */}
                   <button
                     className="btn btn-outline-warning me-2" onClick={() => setDetalle(serv)}>
                     Ver detalle
