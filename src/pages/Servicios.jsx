@@ -16,7 +16,7 @@ const servicios = [
     id: 'manicura',
     nombre: 'Manicura',
     descripcion: 'Manicure, pedicure, gel y acrílicas.',
-    imagen: '/images/images/unas.png'
+    imagen: '/images/unas.png'
   },
   {
     id: 'depiladora',
