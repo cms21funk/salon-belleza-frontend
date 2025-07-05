@@ -10,31 +10,31 @@ const servicios = [
     id: 'peluqueria',
     nombre: 'Peluquería',
     descripcion: 'Cortes, color, brushing, alisados y más.',
-    imagen: '/src/assets/images/peluqueria.png'
+    imagen: '/images/peluqueria.png'
   },
   {
     id: 'manicura',
     nombre: 'Manicura',
     descripcion: 'Manicure, pedicure, gel y acrílicas.',
-    imagen: '/src/assets/images/unas.png'
+    imagen: '/images/images/unas.png'
   },
   {
     id: 'depiladora',
     nombre: 'Depilación',
     descripcion: 'Depilación tradicional y con cera.',
-    imagen: '/src/assets/images/depilacion.png'
+    imagen: '/images/depilacion.png'
   },
   {
     id: 'esteticista',
     nombre: 'Esteticista',
     descripcion: 'Tratamientos faciales, corporales y más.',
-    imagen: '/src/assets/images/esteticista.png'
+    imagen: '/images/esteticista.png'
   },
   {
     id: 'pestañas y cejas',
     nombre: 'Pestañas y Cejas',
     descripcion: 'Lifting, diseño de cejas, extensión de pestañas.',
-    imagen: '/src/assets/images/pestanasycejas.jpg'
+    imagen: '/images/pestanasycejas.jpg'
   }
 ];
 
