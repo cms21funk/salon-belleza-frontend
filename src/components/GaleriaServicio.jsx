@@ -1,4 +1,3 @@
-// src/components/GaleriaServicio.jsx 
 import { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../auth/useAuth';
@@ -12,10 +11,12 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
   const { usuario } = useAuth();
   const [likes, setLikes] = useState({});
 
+  const API_BASE = 'https://salon-belleza-backend.onrender.com';
+
   useEffect(() => {
     const cargarServicios = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/servicios');
+        const res = await fetch(`${API_BASE}/api/servicios`);
         const data = await res.json();
         const filtrados = data.filter(s => s.servicio.toLowerCase() === servicio.id);
         setServicios(filtrados);
@@ -30,7 +31,7 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
     if (!usuario || usuario.rol !== 'cliente') return;
 
     try {
-      await fetch('http://localhost:3000/api/likes', {
+      await fetch(`${API_BASE}/api/likes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -92,7 +93,7 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
             <div key={serv.id} className="col-md-6 col-lg-3 mb-4">
               <div className="card h-100 bg-black text-white shadow">
                 <img
-                  src={`/images/${serv.imagen}`}
+                  src={`${API_BASE}/images/${serv.imagen}`}
                   className="card-img-top"
                   alt={serv.tipo}
                 />
