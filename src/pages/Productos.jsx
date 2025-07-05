@@ -15,19 +15,19 @@ const productos = [
     id: 'Perfumes de Mujer',
     nombre: 'Perfumes de Mujer',
     descripcion: 'Aromas femeninos sofisticados y encantadores.',
-    imagen: '/src/assets/images/perfumes-mujer.png'
+    imagen: '/images/perfumes-mujer.png'
   },
   {
     id: 'Cosméticos',
     nombre: 'Cosméticos',
     descripcion: 'Productos de maquillaje y cuidado facial.',
-    imagen: '/src/assets/images/cosmeticos.png'
+    imagen: '/images/cosmeticos.png'
   },
   {
     id: 'Boutique',
     nombre: 'Boutique',
     descripcion: 'Accesorios y artículos exclusivos.',
-    imagen: '/src/assets/images/boutique.png'
+    imagen: '/images/images/boutique.png'
   }
 ];
 
