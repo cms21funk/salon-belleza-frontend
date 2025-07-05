@@ -27,7 +27,7 @@ const productos = [
     id: 'Boutique',
     nombre: 'Boutique',
     descripcion: 'Accesorios y artículos exclusivos.',
-    imagen: '/images/images/boutique.png'
+    imagen: '/images/boutique.png'
   }
 ];
 
