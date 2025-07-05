@@ -25,7 +25,7 @@ const Staff = () => {
             id: pro.id,
             nombre: pro.nombre,
             especialidad: pro.especialidad,
-            imagen: `http://localhost:3000/images/${pro.imagen}`
+            imagen: `/images/${pro.imagen}` // ✅ ruta corregida
           }));
 
         setProfesionales(filtrados);
