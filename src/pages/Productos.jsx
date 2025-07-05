@@ -9,7 +9,7 @@ const productos = [
     id: 'Perfumes de Hombre',
     nombre: 'Perfumes de Hombre',
     descripcion: 'Fragancias masculinas elegantes y duraderas.',
-    imagen: '/src/assets/images/perfumes-hombre.png'
+    imagen: '/images/perfumes-hombre.png'
   },
   {
     id: 'Perfumes de Mujer',
