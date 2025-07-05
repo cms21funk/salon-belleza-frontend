@@ -27,7 +27,7 @@ const Staff = () => {
             id: pro.id,
             nombre: pro.nombre,
             especialidad: pro.especialidad,
-            imagen: `/images/${pro.imagen}` // ✅ imagen desde public
+            imagen: `${BASE_URL}${pro.imagen}` // ✅ Esto concatena la URL completa
           }));
 
         setProfesionales(filtrados);
