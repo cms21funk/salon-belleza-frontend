@@ -1,6 +1,6 @@
 /* Fondo global */
 body {
-  background-image: url('/src/assets/images/footer-bg.png');
+  background-image: url('/images/footer-bg.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
