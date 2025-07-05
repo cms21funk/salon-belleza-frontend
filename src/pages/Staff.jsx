@@ -5,18 +5,20 @@ import '../styles/global.css';
 import '../styles/staff.css';
 
 const Staff = () => {
-  const { usuario } = useAuth(); // Usuario autenticado
+  const { usuario } = useAuth();
   const [profesionales, setProfesionales] = useState([]);
   const [comentarios, setComentarios] = useState({});
   const [calificaciones, setCalificaciones] = useState({});
   const [likes, setLikes] = useState({});
   const [dislikes, setDislikes] = useState({});
 
-  // Obtener lista de profesionales con rol 'staff'
+  // ✅ URL base configurable según entorno
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+
   useEffect(() => {
     const obtenerStaff = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/profesionales');
+        const res = await fetch(`${BASE_URL}/api/profesionales`);
         const data = await res.json();
 
         const filtrados = data
@@ -25,7 +27,7 @@ const Staff = () => {
             id: pro.id,
             nombre: pro.nombre,
             especialidad: pro.especialidad,
-            imagen: `/images/${pro.imagen}` // ✅ ruta corregida
+            imagen: `/images/${pro.imagen}` // ✅ ya corregido
           }));
 
         setProfesionales(filtrados);
@@ -37,7 +39,6 @@ const Staff = () => {
     obtenerStaff();
   }, []);
 
-  // Alternar like
   const manejarLike = (id) => {
     if (usuario?.rol === 'cliente') {
       setLikes(prev => ({ ...prev, [id]: !prev[id] }));
@@ -45,7 +46,6 @@ const Staff = () => {
     }
   };
 
-  // Alternar dislike
   const manejarDislike = (id) => {
     if (usuario?.rol === 'cliente') {
       setDislikes(prev => ({ ...prev, [id]: !prev[id] }));
@@ -53,17 +53,14 @@ const Staff = () => {
     }
   };
 
-  // Manejar texto del comentario
   const manejarComentario = (id, value) => {
     setComentarios(prev => ({ ...prev, [id]: value }));
   };
 
-  // Manejar selección de estrellas
   const manejarEstrellas = (id, valor) => {
     setCalificaciones(prev => ({ ...prev, [id]: valor }));
   };
 
-  // Enviar comentario al backend
   const enviarComentario = async (staff_id) => {
     const comentario = comentarios[staff_id] || '';
     const estrellas = calificaciones[staff_id] || 0;
@@ -81,7 +78,7 @@ const Staff = () => {
           dislike
         };
 
-        const res = await fetch('http://localhost:3000/api/feedback', {
+        const res = await fetch(`${BASE_URL}/api/feedback`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body)
