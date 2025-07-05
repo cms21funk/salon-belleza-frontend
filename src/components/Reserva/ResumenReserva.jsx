@@ -13,7 +13,7 @@ const ResumenReserva = ({ formulario, retrocederPaso }) => {
         return;
       }
 
-      const res = await fetch('http://localhost:3000/api/reservas', {
+      const res = await fetch('https://salon-belleza-backend.onrender.com/api/reservas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formulario),

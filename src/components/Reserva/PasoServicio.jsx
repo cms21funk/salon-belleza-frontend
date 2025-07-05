@@ -1,7 +1,7 @@
 // src/components/Reserva/PasoServicio.jsx
 import { useState } from 'react';
 
-// Actualiza los nombres aquí para que coincidan con la base de datos
+// Servicios según base de datos
 const servicios = ['Peluqueria', 'Manicura', 'Depiladora', 'Esteticista', 'Pestanas y Cejas'];
 
 const PasoServicio = ({ avanzarPaso, actualizarFormulario }) => {
@@ -12,7 +12,7 @@ const PasoServicio = ({ avanzarPaso, actualizarFormulario }) => {
     setSeleccionado(servicio);
     actualizarFormulario('servicio', servicio);
     setMostrarImagenAbajo(true);
-    setTimeout(() => avanzarPaso(), 500); 
+    setTimeout(() => avanzarPaso(), 500);
   };
 
   return (
@@ -33,7 +33,7 @@ const PasoServicio = ({ avanzarPaso, actualizarFormulario }) => {
 
       {!mostrarImagenAbajo && (
         <img
-          src="/images/carrusel1.png"
+          src="/images/carrusel1.png" // ✅ ruta desde carpeta public
           alt="Carrusel 1"
           className="img-fluid rounded shadow"
           style={{ maxWidth: '650px', height: 'auto' }}
@@ -43,7 +43,7 @@ const PasoServicio = ({ avanzarPaso, actualizarFormulario }) => {
       {mostrarImagenAbajo && (
         <div className="mt-5">
           <img
-            src="/images/carrusel1.png"
+            src="/images/carrusel1.png" // ✅ ruta desde carpeta public
             alt="Carrusel 1"
             className="img-fluid rounded shadow"
             style={{ maxWidth: '650px', height: 'auto' }}

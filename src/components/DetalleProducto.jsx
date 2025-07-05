@@ -26,7 +26,7 @@ const DetalleProducto = ({ producto, onVolver, likes = {}, toggleLike = () => {}
         {/* Imagen del producto */}
         <div className="col-md-6 mb-4 mb-md-0">
           <img
-            src={`http://localhost:3000/images/${producto.imagen}`}
+            src={`/images/${producto.imagen}`} 
             alt={`Imagen de ${producto.nombre}`}
             className="img-fluid rounded shadow"
             style={{ maxHeight: '450px', objectFit: 'cover' }}
