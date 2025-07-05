@@ -27,7 +27,7 @@ const Staff = () => {
             id: pro.id,
             nombre: pro.nombre,
             especialidad: pro.especialidad,
-            imagen: `/images/${pro.imagen}` // ✅ ya corregido
+            imagen: `/images/${pro.imagen}` // ✅ imagen desde public
           }));
 
         setProfesionales(filtrados);
