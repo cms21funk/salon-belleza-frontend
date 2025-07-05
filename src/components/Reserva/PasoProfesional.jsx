@@ -1,5 +1,7 @@
-//PasoProfesional.jsx
 import { useEffect, useState } from 'react';
+
+// ⚠️ Asegúrate de reemplazar esta URL con tu URL real de Render
+const URL_BACKEND = 'https://salon-belleza-backend.onrender.com';
 
 const PasoProfesional = ({ avanzarPaso, retrocederPaso, actualizarFormulario, servicio }) => {
   const [profesionales, setProfesionales] = useState([]);
@@ -8,10 +10,10 @@ const PasoProfesional = ({ avanzarPaso, retrocederPaso, actualizarFormulario, se
   useEffect(() => {
     const obtenerDatos = async () => {
       try {
-        const resProfesionales = await fetch('http://localhost:3000/api/profesionales');
+        const resProfesionales = await fetch(`${URL_BACKEND}/api/profesionales`);
         const profesionalesData = await resProfesionales.json();
 
-        const resLikes = await fetch('http://localhost:3000/api/feedback/likes');
+        const resLikes = await fetch(`${URL_BACKEND}/api/feedback/likes`);
         const likesData = await resLikes.json();
 
         const likesMap = {};
@@ -33,12 +35,12 @@ const PasoProfesional = ({ avanzarPaso, retrocederPaso, actualizarFormulario, se
     (p) => p.especialidad === servicio
   );
 
- const seleccionar = (profesional) => {
-  console.log('Profesional seleccionada:', profesional);
-  actualizarFormulario('profesional', profesional.nombre);
-  actualizarFormulario('profesional_id', profesional.id);
-  avanzarPaso();
-};
+  const seleccionar = (profesional) => {
+    console.log('Profesional seleccionada:', profesional);
+    actualizarFormulario('profesional', profesional.nombre);
+    actualizarFormulario('profesional_id', profesional.id);
+    avanzarPaso();
+  };
 
   return (
     <div className="text-center text-white">
@@ -48,7 +50,7 @@ const PasoProfesional = ({ avanzarPaso, retrocederPaso, actualizarFormulario, se
           <div key={pro.id} className="col-6 col-md-4 col-lg-3 mb-4">
             <div className="card bg-black text-white">
               <img
-                src={`http://localhost:3000/images/${pro.imagen}`}
+                src={`${URL_BACKEND}/images/${pro.imagen}`}
                 alt={pro.nombre}
                 className="card-img-top"
                 style={{ height: '350px', objectFit: 'cover', borderRadius: '10px' }}
