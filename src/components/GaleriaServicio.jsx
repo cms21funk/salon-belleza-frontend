@@ -18,7 +18,7 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
       try {
         const res = await fetch(`${API_BASE}/api/servicios`);
         const data = await res.json();
-        const filtrados = data.filter(s => s.servicio.toLowerCase().trim() === servicio.nombre.toLowerCase().trim());
+        const filtrados = data.filter(s => s.servicio.toLowerCase() === servicio.id);
         setServicios(filtrados);
       } catch (error) {
         console.error('Error al cargar servicios:', error);
