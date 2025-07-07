@@ -7,31 +7,31 @@ import '../styles/global.css';
 // Lista de servicios disponibles
 const servicios = [
   {
-    id: 'peluqueria',
+    id: 'Peluqueria',
     nombre: 'Peluquería',
     descripcion: 'Cortes, color, brushing, alisados y más.',
     imagen: '/images/peluqueria.png'
   },
   {
-    id: 'manicura',
+    id: 'Manicura',
     nombre: 'Manicura',
     descripcion: 'Manicure, pedicure, gel y acrílicas.',
     imagen: '/images/unas.png'
   },
   {
-    id: 'depiladora',
+    id: 'Depiladora',
     nombre: 'Depilación',
     descripcion: 'Depilación tradicional y con cera.',
     imagen: '/images/depilacion.png'
   },
   {
-    id: 'esteticista',
+    id: 'Esteticista',
     nombre: 'Esteticista',
     descripcion: 'Tratamientos faciales, corporales y más.',
     imagen: '/images/esteticista.png'
   },
   {
-    id: 'pestañas y cejas',
+    id: 'Pestanas y Cejas',
     nombre: 'Pestañas y Cejas',
     descripcion: 'Lifting, diseño de cejas, extensión de pestañas.',
     imagen: '/images/pestanasycejas.jpg'
