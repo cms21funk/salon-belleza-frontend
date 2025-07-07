@@ -18,7 +18,9 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
       try {
         const res = await fetch(`${API_BASE}/api/servicios`);
         const data = await res.json();
-        const filtrados = data.filter(s => s.servicio.toLowerCase() === servicio.id);
+        const normalizar = (texto) =>
+        texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        const filtrados = data.filter(s => normalizar(s.servicio) === normalizar(servicio.id));
         setServicios(filtrados);
       } catch (error) {
         console.error('Error al cargar servicios:', error);
