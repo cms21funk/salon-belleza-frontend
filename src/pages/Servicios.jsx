@@ -1,25 +1,24 @@
-// src/pages/Servicios.jsx
 import { useState } from 'react';
 import GaleriaServicio from '../components/GaleriaServicio';
 import '../styles/Servicios.css';
 import '../styles/global.css';
 
-// Lista de servicios disponibles
+// Lista de servicios disponibles (id corregido para coincidir con la BD)
 const servicios = [
   {
-    id: 'Peluqueria',
+    id: 'Peluqueria', // ✅ sin tilde, como en la BD
     nombre: 'Peluquería',
     descripcion: 'Cortes, color, brushing, alisados y más.',
     imagen: '/images/peluqueria.png'
   },
   {
-    id: 'Manicura',
+    id: 'Manicura', // ✅ coincide con BD
     nombre: 'Manicura',
     descripcion: 'Manicure, pedicure, gel y acrílicas.',
     imagen: '/images/unas.png'
   },
   {
-    id: 'Depiladora',
+    id: 'Depiladora', // ✅ correcto (en la BD no es "Depilación", sino "Depiladora")
     nombre: 'Depilación',
     descripcion: 'Depilación tradicional y con cera.',
     imagen: '/images/depilacion.png'
@@ -31,7 +30,7 @@ const servicios = [
     imagen: '/images/esteticista.png'
   },
   {
-    id: 'Pestanas y Cejas',
+    id: 'Pestanas y Cejas', // ✅ sin tilde para que coincida con la BD
     nombre: 'Pestañas y Cejas',
     descripcion: 'Lifting, diseño de cejas, extensión de pestañas.',
     imagen: '/images/pestanasycejas.jpg'
@@ -39,7 +38,7 @@ const servicios = [
 ];
 
 const Servicios = () => {
-  const [servicioActivo, setServicioActivo] = useState(null); // Servicio seleccionado
+  const [servicioActivo, setServicioActivo] = useState(null);
 
   return (
     <div className="app-bg">
