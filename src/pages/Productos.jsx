@@ -1,4 +1,3 @@
-// src/pages/Productos.jsx
 import { useState } from 'react';
 import GaleriaProducto from '../components/GaleriaProducto';
 import '../styles/global.css';
@@ -32,7 +31,7 @@ const productos = [
 ];
 
 const Productos = () => {
-  const [categoriaActiva, setCategoriaActiva] = useState(null); // Estado para mostrar galería
+  const [categoriaActiva, setCategoriaActiva] = useState(null);
 
   return (
     <div className="app-bg">
@@ -41,20 +40,20 @@ const Productos = () => {
 
         <div className="container mt-4">
           <div className="row">
-            {productos.map((producto) => (
-              <div className="col-md-6 col-lg-3 mb-4" key={producto.id}>
+            {productos.map((p) => (
+              <div className="col-md-6 col-lg-3 mb-4" key={p.id}>
                 <div className="card h-100 bg-black text-white servicio-card">
                   <img
-                    src={producto.imagen}
+                    src={p.imagen}
                     className="card-img-top"
-                    alt={producto.nombre}
+                    alt={p.nombre}
                   />
                   <div className="card-body d-flex flex-column">
-                    <h5 className="card-title">{producto.nombre}</h5>
-                    <p className="card-text flex-grow-1">{producto.descripcion}</p>
+                    <h5 className="card-title">{p.nombre}</h5>
+                    <p className="card-text flex-grow-1">{p.descripcion}</p>
                     <button
                       className="btn btn-outline-light mt-3"
-                      onClick={() => setCategoriaActiva(producto.id)}
+                      onClick={() => setCategoriaActiva(p.id)}
                     >
                       Ver productos y precios
                     </button>
@@ -64,7 +63,6 @@ const Productos = () => {
             ))}
           </div>
 
-          {/* Muestra galería de productos de la categoría seleccionada */}
           {categoriaActiva && (
             <GaleriaProducto
               categoria={categoriaActiva}
