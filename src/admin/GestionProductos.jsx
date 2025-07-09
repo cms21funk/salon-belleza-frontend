@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-// CAMBIAR ESTA URL SEGÚN ENTORNO
 const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'https://salon-belleza-backend.onrender.com';
 
 const GestionProductos = () => {
@@ -43,6 +42,12 @@ const GestionProductos = () => {
       return;
     }
 
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('No has iniciado sesión. Inicia sesión como administrador.');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('nombre', nuevo.nombre);
     formData.append('detalle', nuevo.detalle);
@@ -58,10 +63,13 @@ const GestionProductos = () => {
     try {
       const res = await fetch(endpoint, {
         method,
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
         body: formData
       });
 
-      if (!res.ok) throw new Error();
+      if (!res.ok) throw new Error('Error al guardar producto');
 
       alert(editandoId ? 'Producto actualizado' : 'Producto agregado');
       setNuevo({ nombre: '', detalle: '', categoria: '', precio: '', imagen: null });
@@ -76,8 +84,20 @@ const GestionProductos = () => {
     const confirmar = confirm('¿Deseas eliminar este producto?');
     if (!confirmar) return;
 
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('No tienes permisos para eliminar. Inicia sesión como administrador.');
+      return;
+    }
+
     try {
-      const res = await fetch(`${BASE_URL}/api/productos/${id}`, { method: 'DELETE' });
+      const res = await fetch(`${BASE_URL}/api/productos/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
       if (!res.ok) throw new Error();
       alert('Producto eliminado');
       obtenerProductos();
