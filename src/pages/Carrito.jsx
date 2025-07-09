@@ -6,7 +6,7 @@ import '../styles/Login.css'; // reutilizamos estilos elegantes del login
 import Modal from '../components/Modal'; // usa el mismo modal animado
 
 const Carrito = () => {
-  const { carrito, totalMonto, actualizarCantidad, removerDelCarrito } = useCart();
+  const { carrito, totalMonto, actualizarCantidad, removerDelCarrito, vaciarCarrito } = useCart();
 
   const [formulario, setFormulario] = useState({
     nombre: '',
@@ -46,13 +46,16 @@ const Carrito = () => {
       const data = await res.json();
 
       if (res.ok) {
+         setFormulario({ nombre: '', apellido: '', email: '', celular: '' }); // Limpia el formulario
+         vaciarCarrito(); // Limpia el carrito visual y lógico
+
         setModalContenido(`
-          <strong>✅ Consulta enviada exitosamente.</strong>
-          <p><strong>Nombre:</strong> ${formulario.nombre} ${formulario.apellido}</p>
-          <p><strong>Email:</strong> ${formulario.email}</p>
-          <p><strong>Celular:</strong> ${formulario.celular}</p>
-          <p><strong>Total:</strong> $${totalMonto.toLocaleString()}</p>
-        `);
+        <strong>✅ Consulta enviada exitosamente.</strong>
+        <p><strong>Nombre:</strong> ${formulario.nombre} ${formulario.apellido}</p>
+        <p><strong>Email:</strong> ${formulario.email}</p>
+        <p><strong>Celular:</strong> ${formulario.celular}</p>
+        <p><strong>Total:</strong> $${totalMonto.toLocaleString()}</p>
+      `);
       } else {
         setModalContenido(`<strong>❌ Error al enviar la consulta:</strong> ${data.error}`);
       }
