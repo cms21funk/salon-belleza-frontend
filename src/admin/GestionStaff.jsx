@@ -43,7 +43,7 @@ const GestionStaff = () => {
   // Obtener lista de staff desde backend
   const obtenerStaff = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/profesionales');
+      const res = await fetch('https://salon-belleza-backend.onrender.com/api/profesionales');
       const data = await res.json();
       setStaffList(data);
     } catch (error) {
@@ -61,8 +61,8 @@ const GestionStaff = () => {
 
     const metodo = modoEdicion ? 'PUT' : 'POST';
     const url = modoEdicion
-      ? `http://localhost:3000/api/auth/usuarios/${idSeleccionado}`
-      : 'http://localhost:3000/api/auth/registro-staff';
+    ? `https://salon-belleza-backend.onrender.com/api/auth/usuarios/${idSeleccionado}`
+    : 'https://salon-belleza-backend.onrender.com/api/auth/registro-staff';
 
     const formData = new FormData();
     Object.keys(nuevo).forEach((key) => {
@@ -119,7 +119,7 @@ const GestionStaff = () => {
     if (!confirmar) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/api/auth/usuarios/${id}`, {
+      const res = await fetch(`https://salon-belleza-backend.onrender.com/api/auth/usuarios/${id}`, {
         method: 'DELETE',
       });
 
@@ -222,12 +222,11 @@ const GestionStaff = () => {
               <td>{prof.comuna}</td>
               <td>
                 {prof.imagen ? (
-                  <img
-                    src={`http://localhost:3000/images/${prof.imagen}`}
-                    alt={prof.nombre}
-                    style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '6px' }}
-                  />
-                ) : 'Sin imagen'}
+              <img
+              src={`https://salon-belleza-backend.onrender.com/images/${prof.imagen}`}
+              alt={prof.nombre}
+              style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '6px' }}
+              />) : 'Sin imagen'}
               </td>
               <td>
                 <button className="btn btn-sm btn-warning me-2" onClick={() => cargarParaEditar(prof)}>Modificar</button>
