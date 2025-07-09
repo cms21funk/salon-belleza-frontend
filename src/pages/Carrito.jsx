@@ -1,4 +1,4 @@
-// src/pages/Carrito.jsx
+// src/pages/Carrito.jsx 
 import { useCart } from '../context/CartContext';
 import { useState } from 'react';
 import '../styles/global.css';
@@ -33,7 +33,7 @@ const Carrito = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:3000/api/cotizacion', {
+      const res = await fetch('https://salon-belleza-backend.onrender.com/api/cotizacion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -78,7 +78,7 @@ const Carrito = () => {
                 <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center bg-dark text-white border border-warning">
                   <div className="d-flex align-items-center">
                     <img
-                      src={`http://localhost:3000/images/${item.imagen}`}
+                      src={`https://salon-belleza-backend.onrender.com/images/${item.imagen}`}
                       alt={item.nombre}
                       width="60"
                       height="60"
