@@ -1,4 +1,4 @@
-// src/auth/Login.jsx
+// src/auth/Login.jsx 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './useAuth';
@@ -32,14 +32,14 @@ const Login = () => {
         return;
       }
 
-      // ✅ Guardar token y usuario en localStorage
+      // ✅ Guardar token en localStorage
       localStorage.setItem('token', data.token);
       localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
-      // ✅ Actualizar estado global
+      // ✅ Guardar usuario en contexto
       login(data.usuario);
 
-      // ✅ Redirección según rol
+      // ✅ Redirigir según rol
       switch (data.usuario.rol) {
         case 'admin':
           navigate('/admin');
