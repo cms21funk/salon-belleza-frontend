@@ -1,3 +1,4 @@
+// src/pages/GestionProductos.jsx
 import { useState, useEffect } from 'react';
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'https://salon-belleza-backend.onrender.com';
@@ -9,17 +10,17 @@ const GestionProductos = () => {
     detalle: '',
     categoria: '',
     precio: '',
-    imagen: null
   });
+  const [imagen, setImagen] = useState(null);
   const [editandoId, setEditandoId] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'imagen') {
-      setNuevo({ ...nuevo, imagen: files[0] });
-    } else {
-      setNuevo({ ...nuevo, [name]: value });
-    }
+    const { name, value } = e.target;
+    setNuevo((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    setImagen(e.target.files[0]);
   };
 
   const obtenerProductos = async () => {
@@ -37,7 +38,7 @@ const GestionProductos = () => {
   }, []);
 
   const guardarProducto = async () => {
-    if (!nuevo.nombre || !nuevo.categoria || !nuevo.precio || !nuevo.imagen) {
+    if (!nuevo.nombre || !nuevo.categoria || !nuevo.precio || !imagen) {
       alert('Todos los campos son requeridos');
       return;
     }
@@ -53,7 +54,7 @@ const GestionProductos = () => {
     formData.append('detalle', nuevo.detalle);
     formData.append('categoria', nuevo.categoria);
     formData.append('precio', nuevo.precio);
-    formData.append('imagen', nuevo.imagen);
+    formData.append('imagen', imagen);
 
     const endpoint = editandoId
       ? `${BASE_URL}/api/productos/${editandoId}`
@@ -64,15 +65,16 @@ const GestionProductos = () => {
       const res = await fetch(endpoint, {
         method,
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        body: formData
+        body: formData,
       });
 
       if (!res.ok) throw new Error('Error al guardar producto');
 
       alert(editandoId ? 'Producto actualizado' : 'Producto agregado');
-      setNuevo({ nombre: '', detalle: '', categoria: '', precio: '', imagen: null });
+      setNuevo({ nombre: '', detalle: '', categoria: '', precio: '' });
+      setImagen(null);
       setEditandoId(null);
       obtenerProductos();
     } catch (error) {
@@ -94,8 +96,8 @@ const GestionProductos = () => {
       const res = await fetch(`${BASE_URL}/api/productos/${id}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (!res.ok) throw new Error();
@@ -112,8 +114,8 @@ const GestionProductos = () => {
       detalle: producto.detalle,
       categoria: producto.categoria,
       precio: producto.precio,
-      imagen: null
     });
+    setImagen(null);
     setEditandoId(producto.id);
   };
 
@@ -163,7 +165,7 @@ const GestionProductos = () => {
             type="file"
             name="imagen"
             accept=".png,.jpg,.jpeg"
-            onChange={handleChange}
+            onChange={handleFileChange}
             className="form-control mb-2"
           />
           <button
@@ -188,7 +190,7 @@ const GestionProductos = () => {
           </tr>
         </thead>
         <tbody>
-          {productos.map(producto => (
+          {productos.map((producto) => (
             <tr key={producto.id}>
               <td>{producto.id}</td>
               <td>{producto.nombre}</td>
