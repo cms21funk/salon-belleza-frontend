@@ -32,8 +32,14 @@ const Login = () => {
         return;
       }
 
+      // ✅ Guardar token y usuario en localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('usuario', JSON.stringify(data.usuario));
+
+      // ✅ Actualizar estado global
       login(data.usuario);
 
+      // ✅ Redirección según rol
       switch (data.usuario.rol) {
         case 'admin':
           navigate('/admin');
