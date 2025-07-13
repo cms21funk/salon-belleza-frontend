@@ -86,12 +86,12 @@ const GaleriaProducto = ({ categoria, onCerrar }) => {
             {productos.map((prod) => (
               <div key={prod.id} className="col-md-6 col-lg-3 mb-4">
                 <div className="card h-100 bg-black text-white shadow">
-                  <img
-                    src={`${API_BASE}/images/${prod.imagen}`}
-                    className="card-img-top"
-                    alt={prod.nombre}
-                    style={{ objectFit: 'cover', height: '320px' }}
-                  />
+                <img
+                src={prod.imagen}
+                className="card-img-top"
+                alt={prod.nombre}
+                style={{ objectFit: 'cover', height: '320px' }}
+                />
                   <div className="card-body">
                     <h5 className="card-title">{prod.nombre}</h5>
                     <p className="card-text">
