@@ -37,50 +37,64 @@ const GestionProductos = () => {
     obtenerProductos();
   }, []);
 
-  const guardarProducto = async () => {
-    if (!nuevo.nombre || !nuevo.categoria || !nuevo.precio || !imagen) {
-      alert('Todos los campos son requeridos');
-      return;
-    }
+const guardarProducto = async () => {
+  if (!nuevo.nombre || !nuevo.categoria || !nuevo.precio || !imagen) {
+    alert('Todos los campos son requeridos');
+    return;
+  }
 
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert('No has iniciado sesión. Inicia sesión como administrador.');
-      return;
-    }
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('No has iniciado sesión. Inicia sesión como administrador.');
+    return;
+  }
 
-    const formData = new FormData();
-    formData.append('nombre', nuevo.nombre);
-    formData.append('detalle', nuevo.detalle);
-    formData.append('categoria', nuevo.categoria);
-    formData.append('precio', nuevo.precio);
-    formData.append('imagen', imagen);
+  try {
+    // 1. Subir imagen a Cloudinary
+    const formDataImg = new FormData();
+    formDataImg.append('file', imagen);
+    formDataImg.append('upload_preset', 'salon_unsigned_upload');
+
+    const resImg = await fetch('https://api.cloudinary.com/v1_1/dpu1b6qpx/image/upload', {
+      method: 'POST',
+      body: formDataImg
+    });
+
+    const dataImg = await resImg.json();
+    const urlImagen = dataImg.secure_url;
+
+    // 2. Enviar producto al backend con la URL de Cloudinary
+    const producto = {
+      ...nuevo,
+      imagen: urlImagen
+    };
 
     const endpoint = editandoId
       ? `${BASE_URL}/api/productos/${editandoId}`
       : `${BASE_URL}/api/productos`;
     const method = editandoId ? 'PUT' : 'POST';
 
-    try {
-      const res = await fetch(endpoint, {
-        method,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+    const res = await fetch(endpoint, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(producto),
+    });
 
-      if (!res.ok) throw new Error('Error al guardar producto');
+    if (!res.ok) throw new Error('Error al guardar producto');
 
-      alert(editandoId ? 'Producto actualizado' : 'Producto agregado');
-      setNuevo({ nombre: '', detalle: '', categoria: '', precio: '' });
-      setImagen(null);
-      setEditandoId(null);
-      obtenerProductos();
-    } catch (error) {
-      console.error('Error al guardar producto:', error);
-    }
-  };
+    alert(editandoId ? 'Producto actualizado' : 'Producto agregado');
+    setNuevo({ nombre: '', detalle: '', categoria: '', precio: '' });
+    setImagen(null);
+    setEditandoId(null);
+    obtenerProductos();
+  } catch (error) {
+    console.error('Error al guardar producto:', error);
+    alert('Error al guardar producto');
+  }
+};
 
   const eliminarProducto = async (id) => {
     const confirmar = confirm('¿Deseas eliminar este producto?');
