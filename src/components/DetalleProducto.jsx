@@ -1,4 +1,3 @@
-// src/components/DetalleProducto.jsx
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../auth/useAuth';
@@ -26,7 +25,7 @@ const DetalleProducto = ({ producto, onVolver, likes = {}, toggleLike = () => {}
         {/* Imagen del producto */}
         <div className="col-md-6 mb-4 mb-md-0">
           <img
-            src={`/images/${producto.imagen}`} 
+            src={producto.imagen}  // 🔄 Cambiado aquí
             alt={`Imagen de ${producto.nombre}`}
             className="img-fluid rounded shadow"
             style={{ maxHeight: '450px', objectFit: 'cover' }}
