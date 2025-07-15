@@ -105,7 +105,7 @@ const GaleriaServicio = ({ servicio, onCerrar }) => {
             <div key={serv.id} className="col-md-6 col-lg-3 mb-4">
               <div className="card h-100 bg-black text-white shadow">
                 <img
-                  src={`${API_BASE}/images/${serv.imagen}`}
+                  src={serv.imagen}
                   className="card-img-top"
                   alt={serv.tipo}
                 />
