@@ -1,4 +1,4 @@
-// src/pages/Staff.jsx
+// src/pages/Staff.jsx 
 import { useEffect, useState } from 'react';
 import { useAuth } from '../auth/useAuth';
 import '../styles/global.css';
@@ -12,7 +12,6 @@ const Staff = () => {
   const [likes, setLikes] = useState({});
   const [dislikes, setDislikes] = useState({});
 
-  // ✅ URL base configurable según entorno
   const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
   useEffect(() => {
@@ -27,7 +26,7 @@ const Staff = () => {
             id: pro.id,
             nombre: pro.nombre,
             especialidad: pro.especialidad,
-            imagen: `${BASE_URL}${pro.imagen}` // ✅ Esto concatena la URL completa
+            imagen: pro.imagen ? `${BASE_URL}/images/${pro.imagen}` : null
           }));
 
         setProfesionales(filtrados);
@@ -108,7 +107,12 @@ const Staff = () => {
       <div className="staff-grid">
         {profesionales.map(pro => (
           <div key={pro.id} className="staff-card">
-            <img src={pro.imagen} alt={pro.nombre} />
+            {pro.imagen ? (
+              <img src={pro.imagen} alt={pro.nombre} />
+            ) : (
+              <div className="text-white mb-2">Imagen no disponible</div>
+            )}
+
             <p className="staff-name">{pro.nombre}</p>
             <p className="staff-role">Staff {pro.especialidad}</p>
 
