@@ -1,8 +1,6 @@
-// src/admin/GestionStaff.jsx
 import { useEffect, useState } from 'react';
 
 const GestionStaff = () => {
-  // Estado inicial para el formulario de staff
   const [nuevo, setNuevo] = useState({
     nombre: '',
     rol: '',
@@ -18,19 +16,11 @@ const GestionStaff = () => {
   const [modoEdicion, setModoEdicion] = useState(false);
   const [idSeleccionado, setIdSeleccionado] = useState(null);
 
-  // Datos predefinidos para selects
   const rolesDisponibles = ['admin', 'staff'];
   const especialidades = ['Administrador', 'Peluqueria', 'Manicura', 'Depiladora', 'Esteticista', 'Pestanas y Cejas', 'Vendedora', 'Promotora'];
   const generos = ['Masculino', 'Femenino'];
-  const comunas = [
-    'Independencia', 'Isla de Maipo', 'La Cisterna', 'La Florida', 'La Granja', 'Lampa', 'La Pintana', 'La Reina',
-    'Las Condes', 'Lo Barnechea', 'Lo Espejo', 'Lo Prado', 'Macul', 'Maipu', 'María Pinto', 'Melipilla', 'Ñuñoa',
-    'Padre Hurtado', 'Paine', 'Pedro Aguirre Cerda', 'Peñaflor', 'Peñalolén', 'Pirque', 'Providencia', 'Pudahuel',
-    'Puente Alto', 'Quilicura', 'Quinta Normal', 'Recoleta', 'Renca', 'San Bernardo', 'San Joaquin',
-    'San Jose de Maipo', 'San Miguel', 'San Pedro', 'San Ramon', 'Santiago', 'Talagante', 'Tiltil', 'Vitacura'
-  ];
+  const comunas = ['Maipu', 'Puente Alto', 'Vitacura'];
 
-  // Maneja cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'imagen') {
@@ -40,7 +30,6 @@ const GestionStaff = () => {
     }
   };
 
-  // Obtener lista de staff desde backend
   const obtenerStaff = async () => {
     try {
       const res = await fetch('https://salon-belleza-backend.onrender.com/api/profesionales');
@@ -55,24 +44,44 @@ const GestionStaff = () => {
     obtenerStaff();
   }, []);
 
-  // Enviar datos (crear o actualizar)
+  const subirACloudinary = async (archivo) => {
+    const formData = new FormData();
+    formData.append('file', archivo);
+    formData.append('upload_preset', 'salon_preset');
+
+    const res = await fetch(`https://api.cloudinary.com/v1_1/<tu_cloud_name>/image/upload`, {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await res.json();
+    return data.secure_url;
+  };
+
   const enviarDatos = async (e) => {
     e.preventDefault();
 
     const metodo = modoEdicion ? 'PUT' : 'POST';
     const url = modoEdicion
-    ? `https://salon-belleza-backend.onrender.com/api/auth/usuarios/${idSeleccionado}`
-    : 'https://salon-belleza-backend.onrender.com/api/auth/registro-staff';
+      ? `https://salon-belleza-backend.onrender.com/api/auth/usuarios/${idSeleccionado}`
+      : 'https://salon-belleza-backend.onrender.com/api/auth/registro-staff';
 
-    const formData = new FormData();
-    Object.keys(nuevo).forEach((key) => {
-      if (nuevo[key]) formData.append(key, nuevo[key]);
-    });
+    let imagenUrl = '';
+
+    if (nuevo.imagen && typeof nuevo.imagen === 'object') {
+      imagenUrl = await subirACloudinary(nuevo.imagen);
+    }
+
+    const payload = {
+      ...nuevo,
+      imagen: imagenUrl || (modoEdicion ? undefined : null),
+    };
 
     try {
       const response = await fetch(url, {
         method: metodo,
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) throw new Error('Error al guardar cambios');
@@ -97,7 +106,6 @@ const GestionStaff = () => {
     }
   };
 
-  // Cargar datos en el formulario para modificar
   const cargarParaEditar = (prof) => {
     setNuevo({
       nombre: prof.nombre,
@@ -113,10 +121,8 @@ const GestionStaff = () => {
     setIdSeleccionado(prof.id);
   };
 
-  // Eliminar profesional
   const eliminarProfesional = async (id) => {
-    const confirmar = confirm('¿Seguro que deseas eliminar este profesional?');
-    if (!confirmar) return;
+    if (!confirm('¿Seguro que deseas eliminar este profesional?')) return;
 
     try {
       const res = await fetch(`https://salon-belleza-backend.onrender.com/api/auth/usuarios/${id}`, {
@@ -135,51 +141,42 @@ const GestionStaff = () => {
   return (
     <div className="container py-4 text-white">
       <h3 className="mb-3">Gestión del Staff</h3>
-
-      {/* Formulario de registro / edición */}
-      <form onSubmit={enviarDatos} className="mb-4" encType="multipart/form-data">
+      <form onSubmit={enviarDatos} className="mb-4">
         <div className="row g-2">
           <div className="col-md-3">
-            <input name="nombre" className="form-control" placeholder="Nombre" onChange={handleChange} value={nuevo.nombre} required />
+            <input name="nombre" type="text" className="form-control" placeholder="Nombre" value={nuevo.nombre} onChange={handleChange} />
           </div>
           <div className="col-md-3">
-            <select name="rol" className="form-control" onChange={handleChange} value={nuevo.rol} required>
+            <select name="rol" className="form-control" value={nuevo.rol} onChange={handleChange}>
               <option value="">Seleccionar Rol</option>
-              {rolesDisponibles.map(r => <option key={r}>{r}</option>)}
+              {rolesDisponibles.map((rol) => <option key={rol} value={rol}>{rol}</option>)}
             </select>
           </div>
           <div className="col-md-3">
-            <select name="especialidad" className="form-control" onChange={handleChange} value={nuevo.especialidad} required>
+            <select name="especialidad" className="form-control" value={nuevo.especialidad} onChange={handleChange}>
               <option value="">Seleccionar Especialidad</option>
-              {especialidades.map(e => <option key={e}>{e}</option>)}
+              {especialidades.map((e) => <option key={e} value={e}>{e}</option>)}
             </select>
           </div>
           <div className="col-md-3">
-            <select name="genero" className="form-control" onChange={handleChange} value={nuevo.genero} required>
+            <select name="genero" className="form-control" value={nuevo.genero} onChange={handleChange}>
               <option value="">Seleccionar Género</option>
-              {generos.map(g => <option key={g}>{g}</option>)}
+              {generos.map((g) => <option key={g} value={g}>{g}</option>)}
             </select>
           </div>
         </div>
 
         <div className="row g-2 mt-2">
           <div className="col-md-3">
-            <input name="email" type="email" className="form-control" placeholder="Correo" onChange={handleChange} value={nuevo.email} required />
+            <input name="email" type="email" className="form-control" placeholder="Correo" value={nuevo.email} onChange={handleChange} />
           </div>
           <div className="col-md-3">
-            <input
-              name="password"
-              type="password"
-              className="form-control"
-              placeholder={modoEdicion ? "Dejar en blanco para no cambiar" : "Contraseña"}
-              onChange={handleChange}
-              value={nuevo.password}
-            />
+            <input name="password" type="password" className="form-control" placeholder="Contraseña" value={nuevo.password} onChange={handleChange} />
           </div>
           <div className="col-md-3">
-            <select name="comuna" className="form-control" onChange={handleChange} value={nuevo.comuna} required>
+            <select name="comuna" className="form-control" value={nuevo.comuna} onChange={handleChange}>
               <option value="">Seleccionar Comuna</option>
-              {comunas.map(c => <option key={c}>{c}</option>)}
+              {comunas.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
           <div className="col-md-3">
@@ -196,19 +193,11 @@ const GestionStaff = () => {
         </div>
       </form>
 
-      {/* Tabla de profesionales */}
       <h5 className="mt-4">Profesionales registrados</h5>
       <table className="table table-dark table-striped table-bordered">
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>Rol</th>
-            <th>Especialidad</th>
-            <th>Género</th>
-            <th>Email</th>
-            <th>Comuna</th>
-            <th>Imagen</th>
-            <th>Acciones</th>
+            <th>Nombre</th><th>Rol</th><th>Especialidad</th><th>Género</th><th>Email</th><th>Comuna</th><th>Imagen</th><th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -222,11 +211,8 @@ const GestionStaff = () => {
               <td>{prof.comuna}</td>
               <td>
                 {prof.imagen ? (
-              <img
-              src={`https://salon-belleza-backend.onrender.com/images/${prof.imagen}`}
-              alt={prof.nombre}
-              style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '6px' }}
-              />) : 'Sin imagen'}
+                  <img src={prof.imagen} alt={prof.nombre} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '6px' }} />
+                ) : 'Sin imagen'}
               </td>
               <td>
                 <button className="btn btn-sm btn-warning me-2" onClick={() => cargarParaEditar(prof)}>Modificar</button>
