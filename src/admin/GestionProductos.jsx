@@ -213,9 +213,9 @@ const guardarProducto = async () => {
               <td>{producto.detalle}</td>
               <td>
                 <img
-                  src={`${BASE_URL}/images/${producto.imagen}`}
-                  alt={producto.nombre}
-                  width="80"
+                src={producto.imagen.startsWith('http') ? producto.imagen : `/images/${producto.imagen}`}
+                alt={producto.nombre}
+                style={{ width: '60px', height: '60px', objectFit: 'cover' }}
                 />
               </td>
               <td>
