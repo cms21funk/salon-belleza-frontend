@@ -49,7 +49,7 @@ const GestionStaff = () => {
     formData.append('file', archivo);
     formData.append('upload_preset', 'salon_preset');
 
-    const res = await fetch(`https://api.cloudinary.com/v1_1/<tu_cloud_name>/image/upload`, {
+    const res = await fetch(`https://api.cloudinary.com/v1_1/dpu1b6qpx/image/upload`, {
       method: 'POST',
       body: formData
     });
