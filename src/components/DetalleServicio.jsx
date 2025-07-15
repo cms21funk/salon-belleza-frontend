@@ -49,11 +49,14 @@ const DetalleServicio = ({ servicio, onVolver, likes = {}, toggleLike }) => {
       <div className="row align-items-center">
         {/* Imagen del servicio */}
         <div className="col-md-6 text-center">
-          <img
-            src={`${API_BASE}/images/${servicio.imagen}`}
-            alt={servicio.tipo}
-            className="img-fluid rounded shadow"
-          />
+          {servicio.imagen && (
+            <img
+              src={servicio.imagen} // ✅ AHORA la URL es directa desde Cloudinary
+              alt={servicio.tipo}
+              className="img-fluid rounded shadow"
+              style={{ maxHeight: '400px', objectFit: 'cover' }}
+            />
+          )}
         </div>
 
         {/* Detalles del servicio */}
