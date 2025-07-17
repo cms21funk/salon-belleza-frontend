@@ -1,4 +1,4 @@
-// src/pages/Staff.jsx 
+// ✅ Staff.jsx corregido
 import { useEffect, useState } from 'react';
 import { useAuth } from '../auth/useAuth';
 import '../styles/global.css';
@@ -26,7 +26,7 @@ const Staff = () => {
             id: pro.id,
             nombre: pro.nombre,
             especialidad: pro.especialidad,
-            imagen: pro.imagen || null
+            imagen: pro.imagen || null // 🔧 Usa imagen directa (Cloudinary o local)
           }));
 
         setProfesionales(filtrados);

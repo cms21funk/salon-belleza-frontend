@@ -47,17 +47,17 @@ const GestionStaff = () => {
   const subirACloudinary = async (archivo) => {
   const formData = new FormData();
   formData.append("file", archivo, archivo.name);
-  formData.append('upload_preset', 'salon_unsigned_upload'); // ✅ Correcto
+  formData.append("upload_preset", "salon_unsigned_upload");
 
-  const res = await fetch(`https://api.cloudinary.com/v1_1/dpu1b6qpx/image/upload`, {
-    method: 'POST',
-    body: formData
+  const res = await fetch("https://api.cloudinary.com/v1_1/dpu1b6qpx/image/upload", {
+    method: "POST",
+    body: formData,
   });
 
   const data = await res.json();
-  console.log("🔄 Resultado Cloudinary:", data); // 👈 DEBUG
+  console.log("🔄 Resultado Cloudinary:", data);
 
-  return data.secure_url;
+  return data.secure_url; // ✅ devuelves la URL de la imagen
 };
 
   const enviarDatos = async (e) => {
