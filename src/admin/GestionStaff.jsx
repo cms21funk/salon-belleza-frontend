@@ -59,52 +59,58 @@ const GestionStaff = () => {
   };
 
   const enviarDatos = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const metodo = modoEdicion ? 'PUT' : 'POST';
-    const url = modoEdicion
-      ? `https://salon-belleza-backend.onrender.com/api/auth/usuarios/${idSeleccionado}`
-      : 'https://salon-belleza-backend.onrender.com/api/auth/registro-staff';
+  const metodo = modoEdicion ? 'PUT' : 'POST';
+  const url = modoEdicion
+    ? `https://salon-belleza-backend.onrender.com/api/auth/usuarios/${idSeleccionado}`
+    : 'https://salon-belleza-backend.onrender.com/api/auth/registro-staff';
 
-    let imagenUrl = '';
+  let imagenUrl = null;
 
-    if (nuevo.imagen && typeof nuevo.imagen === 'object') {
-      imagenUrl = await subirACloudinary(nuevo.imagen);
-    }
+  // Si se subió una nueva imagen (archivo)
+  if (nuevo.imagen && typeof nuevo.imagen === 'object') {
+    imagenUrl = await subirACloudinary(nuevo.imagen);
+  }
 
-      const payload = {
-       ...nuevo,
-      imagen: imagenUrl || nuevo.imagen || null, // Asegura que no sea undefined
-    };
+  // Si no se subió una nueva imagen, pero ya hay una guardada como string, úsala
+  if (!imagenUrl && typeof nuevo.imagen === 'string') {
+    imagenUrl = nuevo.imagen;
+  }
 
-    try {
-      const response = await fetch(url, {
-        method: metodo,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) throw new Error('Error al guardar cambios');
-
-      alert(modoEdicion ? 'Modificación exitosa' : 'Registro exitoso');
-      setNuevo({
-        nombre: '',
-        rol: '',
-        especialidad: '',
-        genero: '',
-        email: '',
-        password: '',
-        comuna: '',
-        imagen: null,
-      });
-      setModoEdicion(false);
-      setIdSeleccionado(null);
-      obtenerStaff();
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Error al guardar cambios.');
-    }
+  const payload = {
+    ...nuevo,
+    imagen: imagenUrl || null,
   };
+
+  try {
+    const response = await fetch(url, {
+      method: metodo,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) throw new Error('Error al guardar cambios');
+
+    alert(modoEdicion ? 'Modificación exitosa' : 'Registro exitoso');
+    setNuevo({
+      nombre: '',
+      rol: '',
+      especialidad: '',
+      genero: '',
+      email: '',
+      password: '',
+      comuna: '',
+      imagen: null,
+    });
+    setModoEdicion(false);
+    setIdSeleccionado(null);
+    obtenerStaff();
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Error al guardar cambios.');
+  }
+};
 
   const cargarParaEditar = (prof) => {
     setNuevo({
