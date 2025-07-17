@@ -55,6 +55,8 @@ const GestionStaff = () => {
   });
 
   const data = await res.json();
+  console.log("🔄 Resultado Cloudinary:", data); // 👈 DEBUG
+
   return data.secure_url;
 };
 
