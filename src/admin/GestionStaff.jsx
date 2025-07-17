@@ -72,9 +72,9 @@ const GestionStaff = () => {
       imagenUrl = await subirACloudinary(nuevo.imagen);
     }
 
-    const payload = {
-      ...nuevo,
-      imagen: imagenUrl || (modoEdicion ? undefined : null),
+      const payload = {
+       ...nuevo,
+      imagen: imagenUrl || nuevo.imagen || null, // Asegura que no sea undefined
     };
 
     try {
