@@ -45,18 +45,18 @@ const GestionStaff = () => {
   }, []);
 
   const subirACloudinary = async (archivo) => {
-    const formData = new FormData();
-    formData.append('file', archivo);
-    formData.append('upload_preset', 'salon_preset');
+  const formData = new FormData();
+  formData.append('file', archivo);
+  formData.append('upload_preset', 'salon_preset');
 
-    const res = await fetch(`https://api.cloudinary.com/v1_1/dpu1b6qpx/image/upload`, {
-      method: 'POST',
-      body: formData
-    });
+  const res = await fetch(`https://api.cloudinary.com/v1_1/dpu1b6qpx/image/upload`, {
+    method: 'POST',
+    body: formData
+  });
 
-    const data = await res.json();
-    return data.secure_url;
-  };
+  const data = await res.json();
+  return data.secure_url;
+};
 
   const enviarDatos = async (e) => {
   e.preventDefault();
@@ -68,22 +68,21 @@ const GestionStaff = () => {
 
   let imagenUrl = null;
 
-  // Si se subió una nueva imagen (archivo)
-if (
-  nuevo.imagen &&
-  (nuevo.imagen instanceof File || (nuevo.imagen.constructor && nuevo.imagen.constructor.name === 'File'))
-) {
-  imagenUrl = await subirACloudinary(nuevo.imagen);
-}
-
-  // Si no se subió una nueva imagen, pero ya hay una guardada como string, úsala
-  if (!imagenUrl && typeof nuevo.imagen === 'string') {
-    imagenUrl = nuevo.imagen;
+  // 🔍 Subir a Cloudinary si se seleccionó archivo
+  if (
+    nuevo.imagen &&
+    (nuevo.imagen instanceof File ||
+      (nuevo.imagen.constructor && nuevo.imagen.constructor.name === 'File'))
+  ) {
+    imagenUrl = await subirACloudinary(nuevo.imagen);
   }
+
+  // 🧠 Si es edición y no subió nueva imagen, conservamos la imagen anterior
+  const imagenFinal = imagenUrl || (!modoEdicion ? null : undefined);
 
   const payload = {
     ...nuevo,
-    imagen: imagenUrl || null,
+    imagen: imagenFinal,
   };
 
   try {
