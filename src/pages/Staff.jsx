@@ -26,7 +26,7 @@ const Staff = () => {
             id: pro.id,
             nombre: pro.nombre,
             especialidad: pro.especialidad,
-            imagen: pro.imagen ? `${BASE_URL}/images/${pro.imagen}` : null
+            imagen: pro.imagen || null
           }));
 
         setProfesionales(filtrados);
