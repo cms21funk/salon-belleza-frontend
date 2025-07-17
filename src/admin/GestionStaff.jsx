@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'; 
 
 const GestionStaff = () => {
   const [nuevo, setNuevo] = useState({
@@ -45,76 +45,71 @@ const GestionStaff = () => {
   }, []);
 
   const subirACloudinary = async (archivo) => {
-  const formData = new FormData();
-  formData.append("file", archivo, archivo.name);
-  formData.append("upload_preset", "salon_unsigned_upload");
+    const formData = new FormData();
+    formData.append("file", archivo, archivo.name);
+    formData.append("upload_preset", "salon_unsigned_upload");
 
-  const res = await fetch("https://api.cloudinary.com/v1_1/dpu1b6qpx/image/upload", {
-    method: "POST",
-    body: formData,
-  });
-
-  const data = await res.json();
-  console.log("🔄 Resultado Cloudinary:", data);
-
-  return data.secure_url; // ✅ devuelves la URL de la imagen
-};
-
-  const enviarDatos = async (e) => {
-  e.preventDefault();
-
-  const metodo = modoEdicion ? 'PUT' : 'POST';
-  const url = modoEdicion
-    ? `https://salon-belleza-backend.onrender.com/api/auth/usuarios/${idSeleccionado}`
-    : 'https://salon-belleza-backend.onrender.com/api/auth/registro-staff';
-
-  let imagenUrl = null;
-
-  // 🔍 Subir a Cloudinary si se seleccionó archivo
-  if (
-    nuevo.imagen &&
-    (nuevo.imagen instanceof File ||
-      (nuevo.imagen.constructor && nuevo.imagen.constructor.name === 'File'))
-  ) {
-    imagenUrl = await subirACloudinary(nuevo.imagen);
-  }
-
-  // 🧠 Si es edición y no subió nueva imagen, conservamos la imagen anterior
-  const imagenFinal = imagenUrl || (!modoEdicion ? null : undefined);
-
-  const payload = {
-    ...nuevo,
-    imagen: imagenFinal,
+    const res = await fetch('https://api.cloudinary.com/v1_1/dpu1b6qpx/image/upload', {
+      method: 'POST',
+      body: formData,
+    });
+    const data = await res.json();
+    return data.secure_url;
   };
 
-  try {
-    const response = await fetch(url, {
-      method: metodo,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+  const enviarDatos = async (e) => {
+    e.preventDefault();
 
-    if (!response.ok) throw new Error('Error al guardar cambios');
+    const metodo = modoEdicion ? 'PUT' : 'POST';
+    const url = modoEdicion
+      ? `https://salon-belleza-backend.onrender.com/api/auth/usuarios/${idSeleccionado}`
+      : 'https://salon-belleza-backend.onrender.com/api/auth/registro-staff';
 
-    alert(modoEdicion ? 'Modificación exitosa' : 'Registro exitoso');
-    setNuevo({
-      nombre: '',
-      rol: '',
-      especialidad: '',
-      genero: '',
-      email: '',
-      password: '',
-      comuna: '',
-      imagen: null,
-    });
-    setModoEdicion(false);
-    setIdSeleccionado(null);
-    obtenerStaff();
-  } catch (error) {
-    console.error('Error:', error);
-    alert('Error al guardar cambios.');
-  }
-};
+    let imagenUrl = null;
+
+    if (
+      nuevo.imagen &&
+      (nuevo.imagen instanceof File ||
+        (nuevo.imagen.constructor && nuevo.imagen.constructor.name === 'File'))
+    ) {
+      imagenUrl = await subirACloudinary(nuevo.imagen);
+    }
+
+    const imagenFinal = imagenUrl || (modoEdicion ? undefined : null);
+
+    const payload = {
+      ...nuevo,
+      imagen: imagenFinal,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: metodo,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) throw new Error('Error al guardar cambios');
+
+      alert(modoEdicion ? 'Modificación exitosa' : 'Registro exitoso');
+      setNuevo({
+        nombre: '',
+        rol: '',
+        especialidad: '',
+        genero: '',
+        email: '',
+        password: '',
+        comuna: '',
+        imagen: null,
+      });
+      setModoEdicion(false);
+      setIdSeleccionado(null);
+      obtenerStaff();
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error al guardar cambios.');
+    }
+  };
 
   const cargarParaEditar = (prof) => {
     setNuevo({
