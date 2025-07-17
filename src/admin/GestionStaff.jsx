@@ -46,7 +46,7 @@ const GestionStaff = () => {
 
   const subirACloudinary = async (archivo) => {
   const formData = new FormData();
-  formData.append('file', archivo);
+  formData.append("file", archivo, archivo.name);
   formData.append('upload_preset', 'salon_unsigned_upload'); // ✅ Correcto
 
   const res = await fetch(`https://api.cloudinary.com/v1_1/dpu1b6qpx/image/upload`, {
