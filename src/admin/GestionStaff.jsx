@@ -2,14 +2,8 @@ import { useEffect, useState } from 'react';
 
 const GestionStaff = () => {
   const [nuevo, setNuevo] = useState({
-    nombre: '',
-    rol: '',
-    especialidad: '',
-    genero: '',
-    email: '',
-    password: '',
-    comuna: '',
-    imagen: null,
+    nombre: '', rol: '', especialidad: '', genero: '',
+    email: '', password: '', comuna: '', imagen: null,
   });
 
   const [staffList, setStaffList] = useState([]);
@@ -66,11 +60,9 @@ const GestionStaff = () => {
       : 'https://salon-belleza-backend.onrender.com/api/auth/registro-staff';
 
     let imagenUrl = null;
-
     if (
       nuevo.imagen &&
-      (nuevo.imagen instanceof File ||
-        (nuevo.imagen.constructor && nuevo.imagen.constructor.name === 'File'))
+      (nuevo.imagen instanceof File || (nuevo.imagen.constructor && nuevo.imagen.constructor.name === 'File'))
     ) {
       imagenUrl = await subirACloudinary(nuevo.imagen);
     }
@@ -98,16 +90,7 @@ const GestionStaff = () => {
       if (!response.ok) throw new Error('Error al guardar cambios');
 
       alert(modoEdicion ? 'Modificación exitosa' : 'Registro exitoso');
-      setNuevo({
-        nombre: '',
-        rol: '',
-        especialidad: '',
-        genero: '',
-        email: '',
-        password: '',
-        comuna: '',
-        imagen: null,
-      });
+      setNuevo({ nombre: '', rol: '', especialidad: '', genero: '', email: '', password: '', comuna: '', imagen: null });
       setModoEdicion(false);
       setIdSeleccionado(null);
       obtenerStaff();
@@ -221,17 +204,16 @@ const GestionStaff = () => {
               <td>{prof.email}</td>
               <td>{prof.comuna}</td>
               <td>
-              {prof.imagen && prof.imagen.startsWith('http') ? (
-              <img
-              src={prof.imagen}
-              alt={prof.nombre}
-              style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '6px' }}
-              />
-              ) : (
-              'Sin imagen'
-              )}
+                {prof.imagen && prof.imagen.startsWith('http') ? (
+                  <img
+                    src={prof.imagen}
+                    alt={prof.nombre}
+                    style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '6px' }}
+                  />
+                ) : (
+                  'Sin imagen'
+                )}
               </td>
-
               <td>
                 <button className="btn btn-sm btn-warning me-2" onClick={() => cargarParaEditar(prof)}>Modificar</button>
                 <button className="btn btn-sm btn-danger" onClick={() => eliminarProfesional(prof.id)}>Eliminar</button>
