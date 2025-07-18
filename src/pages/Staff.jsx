@@ -20,16 +20,8 @@ const Staff = () => {
         const res = await fetch(`${BASE_URL}/api/profesionales`);
         const data = await res.json();
 
-        const filtrados = data
-          .filter(pro => pro.rol === 'staff')
-          .map(pro => ({
-            id: pro.id,
-            nombre: pro.nombre,
-            especialidad: pro.especialidad,
-            imagen: pro.imagen || null
-          }));
-
-        setProfesionales(filtrados);
+      const filtrados = data.filter(pro => pro.rol === 'staff');
+      setProfesionales(filtrados);
       } catch (error) {
         console.error('Error al obtener staff:', error);
       }
