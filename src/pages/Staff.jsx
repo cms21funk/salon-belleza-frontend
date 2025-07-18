@@ -99,15 +99,15 @@ const Staff = () => {
       <div className="staff-grid">
         {profesionales.map(pro => (
           <div key={pro.id} className="staff-card">
-            {pro.imagen ? (
-              <img
-                src={pro.imagen}
-                alt={pro.nombre}
-                style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '10px' }}
-              />
+            {pro.imagen && pro.imagen.startsWith('http') ? (
+            <img
+            src={pro.imagen}
+            alt={pro.nombre}
+            style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '10px' }}
+            />
             ) : (
-              <div className="text-white mb-2">Imagen no disponible</div>
-            )}
+       <div className="text-white mb-2">Imagen no disponible</div>
+       )}
 
             <p className="staff-name">{pro.nombre}</p>
             <p className="staff-role">Staff {pro.especialidad}</p>
