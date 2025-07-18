@@ -22,6 +22,7 @@ const Staff = () => {
 
       const filtrados = data.filter(pro => pro.rol === 'staff');
       setProfesionales(filtrados);
+      console.log('Profesionales cargados:', filtrados);
       } catch (error) {
         console.error('Error al obtener staff:', error);
       }
