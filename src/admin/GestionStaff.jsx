@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';  
 
 const GestionStaff = () => {
   const [nuevo, setNuevo] = useState({
@@ -78,7 +78,13 @@ const GestionStaff = () => {
     const imagenFinal = imagenUrl || (modoEdicion ? undefined : null);
 
     const payload = {
-      ...nuevo,
+      nombre: nuevo.nombre,
+      rol: nuevo.rol,
+      especialidad: nuevo.especialidad,
+      genero: nuevo.genero,
+      email: nuevo.email,
+      password: nuevo.password,
+      comuna: nuevo.comuna,
       imagen: imagenFinal,
     };
 
