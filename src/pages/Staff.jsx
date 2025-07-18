@@ -1,4 +1,4 @@
-// ✅ Staff.jsx corregido
+// ✅ Staff.jsx:
 import { useEffect, useState } from 'react';
 import { useAuth } from '../auth/useAuth';
 import '../styles/global.css';
@@ -26,7 +26,7 @@ const Staff = () => {
             id: pro.id,
             nombre: pro.nombre,
             especialidad: pro.especialidad,
-            imagen: pro.imagen || null // 🔧 Usa imagen directa (Cloudinary o local)
+            imagen: pro.imagen || null
           }));
 
         setProfesionales(filtrados);
@@ -108,7 +108,11 @@ const Staff = () => {
         {profesionales.map(pro => (
           <div key={pro.id} className="staff-card">
             {pro.imagen ? (
-              <img src={pro.imagen} alt={pro.nombre} />
+              <img
+                src={pro.imagen}
+                alt={pro.nombre}
+                style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '10px' }}
+              />
             ) : (
               <div className="text-white mb-2">Imagen no disponible</div>
             )}
