@@ -1,60 +1,51 @@
-// src/admin/ObservacionDetalleAdmin.jsx
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/useAuth';
 import '../styles/ObservacionDetalleAdmin.css';
 
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
 const ObservacionDetalleAdmin = () => {
-  // Obtener ID del profesional desde la URL
   const { id } = useParams();
   const navigate = useNavigate();
-
-  // Obtener usuario logueado (admin)
   const { usuario } = useAuth();
 
-  // Estados
   const [profesional, setProfesional] = useState(null);
   const [observaciones, setObservaciones] = useState([]);
   const [mensaje, setMensaje] = useState('');
   const [editandoId, setEditandoId] = useState(null);
 
-  // Cargar datos al iniciar componente
   useEffect(() => {
     const cargarDatos = async () => {
       try {
-        // Obtener datos del profesional
-        const res1 = await fetch(`http://localhost:3000/api/usuarios`);
+        const res1 = await fetch(`${BASE_URL}/api/usuarios`);
         const usuarios = await res1.json();
         const profe = usuarios.find(u => u.id === parseInt(id));
         setProfesional(profe);
 
-        // Obtener observaciones asociadas
-        const res2 = await fetch(`http://localhost:3000/api/observaciones/${id}`);
+        const res2 = await fetch(`${BASE_URL}/api/observaciones/${id}`);
         const data = await res2.json();
         setObservaciones(data);
       } catch (error) {
-        console.error('Error al cargar datos del profesional u observaciones:', error);
+        console.error('Error al cargar datos:', error);
       }
     };
 
     cargarDatos();
   }, [id]);
 
-  // Crear o actualizar observación
   const enviarComentario = async () => {
     if (!mensaje.trim()) return;
 
     try {
       if (editandoId) {
-        // Actualizar observación existente
-        await fetch(`http://localhost:3000/api/observaciones/editar/${editandoId}`, {
+        await fetch(`${BASE_URL}/api/observaciones/editar/${editandoId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ mensaje }),
         });
       } else {
-        // Crear nueva observación
-        await fetch('http://localhost:3000/api/observaciones', {
+        await fetch(`${BASE_URL}/api/observaciones`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -65,11 +56,10 @@ const ObservacionDetalleAdmin = () => {
         });
       }
 
-      // Limpiar formulario y recargar observaciones
       setMensaje('');
       setEditandoId(null);
 
-      const res = await fetch(`http://localhost:3000/api/observaciones/${id}`);
+      const res = await fetch(`${BASE_URL}/api/observaciones/${id}`);
       const data = await res.json();
       setObservaciones(data);
     } catch (error) {
@@ -77,39 +67,31 @@ const ObservacionDetalleAdmin = () => {
     }
   };
 
-  // Eliminar observación
   const borrarComentario = async (comentarioId) => {
     try {
-      await fetch(`http://localhost:3000/api/observaciones/${comentarioId}`, {
+      await fetch(`${BASE_URL}/api/observaciones/${comentarioId}`, {
         method: 'DELETE',
       });
-
-      // Filtrar observación eliminada del estado
       setObservaciones(obs => obs.filter(o => o.id !== comentarioId));
     } catch (error) {
       console.error('Error al eliminar comentario:', error);
     }
   };
 
-  // Preparar observación para edición
   const prepararEdicion = (comentario) => {
     setMensaje(comentario.mensaje);
     setEditandoId(comentario.id);
   };
 
-  // Si no está listo el profesional, mostrar cargando
   if (!profesional) return <p className="text-white">Cargando...</p>;
 
   return (
     <div className="container py-5 text-white">
-      {/* 🔹 Cabecera */}
       <h2 className="mb-4 text-center">Observaciones para {profesional.nombre}</h2>
-
-      {/* Tarjeta del profesional */}
       <div className="d-flex justify-content-center mb-4">
         <div className="card-staff text-white text-center">
           <img
-            src={`http://localhost:3000/images/${profesional.imagen}`}
+            src={`${BASE_URL}/images/${profesional.imagen}`}
             className="card-img-top"
             alt={profesional.nombre}
             style={{ height: '200px', objectFit: 'cover', borderRadius: '12px' }}
@@ -121,7 +103,6 @@ const ObservacionDetalleAdmin = () => {
         </div>
       </div>
 
-      {/* Formulario de observación */}
       <h5 className="text-warning text-center">Deja una nueva observación</h5>
       <textarea
         className="form-control mb-3"
@@ -137,7 +118,6 @@ const ObservacionDetalleAdmin = () => {
         </button>
       </div>
 
-      {/* Tabla de observaciones */}
       <div className="table-responsive">
         <table className="table custom-table table-striped table-dark">
           <thead className="text-center">
@@ -168,7 +148,6 @@ const ObservacionDetalleAdmin = () => {
         </table>
       </div>
 
-      {/* Botón volver */}
       <div className="text-center mt-4">
         <button className="btn btn-secondary" onClick={() => navigate('/admin')}>
           ← Volver

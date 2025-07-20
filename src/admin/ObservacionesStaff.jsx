@@ -1,20 +1,17 @@
-// src/admin/ObservacionesStaff.jsx
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
 const ObservacionesStaff = () => {
-  // Estado para almacenar profesionales con rol 'staff'
   const [profesionales, setProfesionales] = useState([]);
   const navigate = useNavigate();
 
-  // Obtener todos los usuarios y filtrar los que son del staff
   useEffect(() => {
     const obtenerProfesionales = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/usuarios');
+        const response = await fetch(`${BASE_URL}/api/usuarios`);
         const data = await response.json();
-
-        // Filtrar usuarios con rol 'staff'
         const staff = data.filter((usuario) => usuario.rol === 'staff');
         setProfesionales(staff);
       } catch (error) {
@@ -25,23 +22,19 @@ const ObservacionesStaff = () => {
     obtenerProfesionales();
   }, []);
 
-  // Navegar al detalle de observaciones del profesional
   const irAObservaciones = (id) => {
     navigate(`/admin/observaciones/${id}`);
   };
 
   return (
     <div className="container mt-4">
-      {/* Título principal */}
       <h2 className="text-center mb-4 text-white">Observaciones del Staff</h2>
-
       <div className="row">
         {profesionales.map((profesional) => (
           <div className="col-6 col-sm-4 col-md-3 col-lg-2 mb-4" key={profesional.id}>
-            {/* Tarjeta de profesional */}
             <div className="card bg-black text-white">
               <img
-                src={`http://localhost:3000/images/${profesional.imagen}`}
+                src={`${BASE_URL}/images/${profesional.imagen}`}
                 className="card-img-top"
                 alt={profesional.nombre}
                 style={{ height: '250px', objectFit: 'cover', borderRadius: '12px' }}
