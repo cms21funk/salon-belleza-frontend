@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';  
+import { useEffect, useState } from 'react';
 
 const GestionStaff = () => {
   const [nuevo, setNuevo] = useState({
@@ -28,6 +28,7 @@ const GestionStaff = () => {
     try {
       const res = await fetch('https://salon-belleza-backend.onrender.com/api/profesionales');
       const data = await res.json();
+      console.log('Staff cargado:', data); // 👈 para depurar
       setStaffList(data);
     } catch (error) {
       console.error('Error al cargar staff:', error);
@@ -203,15 +204,13 @@ const GestionStaff = () => {
               <td>{prof.genero}</td>
               <td>{prof.email}</td>
               <td>{prof.comuna}</td>
-             
               <td>
                 <img
-                src={prof.imagen.startsWith('http') ? prof.imagen : `${prof.imagen}`}
-                alt={prof.nombre}
-                style={{ width: '60px', height: '60px', objectFit: 'cover' }}
+                  src={prof.imagen ? prof.imagen : 'https://via.placeholder.com/60x60?text=Sin+Imagen'}
+                  alt={prof.nombre}
+                  style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '50%' }}
                 />
               </td>
-
               <td>
                 <button className="btn btn-sm btn-warning me-2" onClick={() => cargarParaEditar(prof)}>Modificar</button>
                 <button className="btn btn-sm btn-danger" onClick={() => eliminarProfesional(prof.id)}>Eliminar</button>
