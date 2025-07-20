@@ -50,7 +50,7 @@ const PasoProfesional = ({ avanzarPaso, retrocederPaso, actualizarFormulario, se
           <div key={pro.id} className="col-6 col-md-4 col-lg-3 mb-4">
             <div className="card bg-black text-white">
               <img
-                src={`${URL_BACKEND}/images/${pro.imagen}`}
+                src={pro.imagen} {/* ← CORREGIDO: usar URL directa */}
                 alt={pro.nombre}
                 className="card-img-top"
                 style={{ height: '350px', objectFit: 'cover', borderRadius: '10px' }}
