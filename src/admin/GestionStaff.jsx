@@ -203,17 +203,15 @@ const GestionStaff = () => {
               <td>{prof.genero}</td>
               <td>{prof.email}</td>
               <td>{prof.comuna}</td>
+             
               <td>
-                {prof.imagen && prof.imagen.startsWith('http') ? (
-                  <img
-                    src={prof.imagen}
-                    alt={prof.nombre}
-                    style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '6px' }}
-                  />
-                ) : (
-                  'Sin imagen'
-                )}
+                <img
+                src={prof.imagen.startsWith('http') ? prof.imagen : `/images/${prof.imagen}`}
+                alt={prof.nombre}
+                style={{ width: '60px', height: '60px', objectFit: 'cover' }}
+                />
               </td>
+
               <td>
                 <button className="btn btn-sm btn-warning me-2" onClick={() => cargarParaEditar(prof)}>Modificar</button>
                 <button className="btn btn-sm btn-danger" onClick={() => eliminarProfesional(prof.id)}>Eliminar</button>
