@@ -34,10 +34,18 @@ const ObservacionesStaff = () => {
           <div className="col-6 col-sm-4 col-md-3 col-lg-2 mb-4" key={profesional.id}>
             <div className="card bg-black text-white">
               <img
-                src={`${BASE_URL}/images/${profesional.imagen}`}
+                src={
+                  profesional.imagen?.startsWith('http')
+                    ? profesional.imagen
+                    : `${BASE_URL}/images/${profesional.imagen}`
+                }
                 className="card-img-top"
                 alt={profesional.nombre}
                 style={{ height: '250px', objectFit: 'cover', borderRadius: '12px' }}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/default.jpg'; // opcional: imagen por defecto
+                }}
               />
               <div className="card-body text-center">
                 <h5 className="card-title">{profesional.nombre}</h5>
