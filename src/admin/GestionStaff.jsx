@@ -28,7 +28,7 @@ const GestionStaff = () => {
     try {
       const res = await fetch('https://salon-belleza-backend.onrender.com/api/profesionales');
       const data = await res.json();
-      console.log('Staff cargado:', data); // 👈 para depurar
+      console.log('Staff cargado:', data);
       setStaffList(data);
     } catch (error) {
       console.error('Error al cargar staff:', error);
@@ -68,7 +68,7 @@ const GestionStaff = () => {
       imagenUrl = await subirACloudinary(nuevo.imagen);
     }
 
-    const imagenFinal = imagenUrl || (modoEdicion ? undefined : null);
+    const imagenFinal = imagenUrl ?? (modoEdicion ? undefined : 'https://via.placeholder.com/60x60?text=Sin+Imagen');
 
     const payload = {
       nombre: nuevo.nombre,
@@ -206,7 +206,7 @@ const GestionStaff = () => {
               <td>{prof.comuna}</td>
               <td>
                 <img
-                  src={prof.imagen ? prof.imagen : 'https://via.placeholder.com/60x60?text=Sin+Imagen'}
+                  src={prof.imagen || 'https://via.placeholder.com/60x60?text=Sin+Imagen'}
                   alt={prof.nombre}
                   style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '50%' }}
                 />
