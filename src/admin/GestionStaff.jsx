@@ -206,7 +206,7 @@ const GestionStaff = () => {
              
               <td>
                 <img
-                src={prof.imagen.startsWith('http') ? prof.imagen : `/images/${prof.imagen}`}
+                src={prof.imagen.startsWith('http') ? prof.imagen : `${prof.imagen}`}
                 alt={prof.nombre}
                 style={{ width: '60px', height: '60px', objectFit: 'cover' }}
                 />
