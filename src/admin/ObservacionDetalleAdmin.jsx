@@ -91,10 +91,14 @@ const ObservacionDetalleAdmin = () => {
       <div className="d-flex justify-content-center mb-4">
         <div className="card-staff text-white text-center">
           <img
-            src={`${BASE_URL}/images/${profesional.imagen}`}
+            src={
+              profesional.imagen?.startsWith('http')
+                ? profesional.imagen
+                : `${BASE_URL}/images/${profesional.imagen}`
+            }
             className="card-img-top"
             alt={profesional.nombre}
-            style={{ height: '200px', objectFit: 'cover', borderRadius: '12px' }}
+            style={{ height: '200px', width: '200px', objectFit: 'cover', borderRadius: '12px' }}
           />
           <div>
             <h4 className="fw-bold mt-3">{profesional.nombre}</h4>
