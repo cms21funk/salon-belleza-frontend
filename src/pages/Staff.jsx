@@ -1,4 +1,3 @@
-// ✅ Staff.jsx:
 import { useEffect, useState } from 'react';
 import { useAuth } from '../auth/useAuth';
 import '../styles/global.css';
@@ -20,9 +19,9 @@ const Staff = () => {
         const res = await fetch(`${BASE_URL}/api/profesionales`);
         const data = await res.json();
 
-      const filtrados = data.filter(pro => pro.rol === 'staff');
-      setProfesionales(filtrados);
-      console.log('Profesionales cargados:', filtrados);
+        const filtrados = data.filter(pro => pro.rol === 'staff');
+        setProfesionales(filtrados);
+        console.log('Profesionales cargados:', filtrados);
       } catch (error) {
         console.error('Error al obtener staff:', error);
       }
@@ -101,14 +100,27 @@ const Staff = () => {
         {profesionales.map(pro => (
           <div key={pro.id} className="staff-card">
             {pro.imagen && pro.imagen.startsWith('http') ? (
-            <img
-            src={pro.imagen}
-            alt={pro.nombre}
-            style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '10px' }}
-            />
+              <img
+                src={pro.imagen}
+                alt={pro.nombre}
+                style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '10px' }}
+              />
             ) : (
-       <div className="text-white mb-2">Imagen no disponible</div>
-       )}
+              <div
+                style={{
+                  width: '100%',
+                  height: '250px',
+                  backgroundColor: '#444',
+                  borderRadius: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white'
+                }}
+              >
+                Imagen no disponible
+              </div>
+            )}
 
             <p className="staff-name">{pro.nombre}</p>
             <p className="staff-role">Staff {pro.especialidad}</p>
