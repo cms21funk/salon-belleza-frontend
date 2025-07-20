@@ -45,31 +45,31 @@ const PasoProfesional = ({ avanzarPaso, retrocederPaso, actualizarFormulario, se
   return (
     <div className="text-center text-white">
       <h2 className="mb-3">Selecciona una profesional</h2>
-      <div className="row justify-content-center">
-        {profesionalesFiltradas.map((pro) => (
-          <div key={pro.id} className="col-6 col-md-4 col-lg-3 mb-4">
-            <div className="card bg-black text-white">
-              <img
-                src={pro.imagen} {/* ← CORREGIDO: usar URL directa */}
-                alt={pro.nombre}
-                className="card-img-top"
-                style={{ height: '350px', objectFit: 'cover', borderRadius: '10px' }}
-              />
-              <div className="card-body">
-                <h5 className="card-title">{pro.nombre}</h5>
-                <p className="card-text">{pro.especialidad}</p>
-                <p className="card-text">👍 {likes[pro.id] || 0} Likes</p>
-                <button
-                  className="btn btn-warning w-100 mt-2"
-                  onClick={() => seleccionar(pro)}
-                >
-                  Seleccionar
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
+<div className="row justify-content-center">
+  {profesionalesFiltradas.map((pro) => (
+    <div key={pro.id} className="col-6 col-md-4 col-lg-3 mb-4">
+      <div className="card bg-black text-white">
+        <img
+          src={pro.imagen}
+          alt={pro.nombre}
+          className="card-img-top"
+          style={{ height: '350px', objectFit: 'cover', borderRadius: '10px' }}
+        />
+        <div className="card-body">
+          <h5 className="card-title">{pro.nombre}</h5>
+          <p className="card-text">{pro.especialidad}</p>
+          <p className="card-text">👍 {likes[pro.id] || 0} Likes</p>
+          <button
+            className="btn btn-warning w-100 mt-2"
+            onClick={() => seleccionar(pro)}
+          >
+            Seleccionar
+          </button>
+        </div>
       </div>
+    </div>
+  ))}
+</div>
       <button onClick={retrocederPaso} className="btn btn-secondary mt-3">
         ← Volver
       </button>
