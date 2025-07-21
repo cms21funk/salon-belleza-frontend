@@ -1,4 +1,3 @@
-// src/staff/MisMensajes.jsx
 import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../auth/useAuth';
 import '../styles/MisMensajes.css';
@@ -83,10 +82,10 @@ const MisMensajes = () => {
           </ul>
         </div>
 
-        {/* Imagen de perfil */}
+        {/* Imagen de perfil (usar Cloudinary u otra URL completa directamente) */}
         <div>
           <img
-            src={`http://localhost:3000/images/${usuario.imagen}`}
+            src={usuario.imagen}
             alt="Perfil"
             className="perfil-foto"
           />
@@ -107,21 +106,20 @@ const MisMensajes = () => {
           {observaciones.map((obs) => (
             <tr key={obs.id}>
               <td>{new Date(obs.fecha).toLocaleString()}</td>
+              <td>{obs.mensaje}</td>
               <td>
-  {obs.estado === 'Leído' ? (
-    <span className="check-btn checked">✅ Leído</span>
-  ) : (
-    <>
-      <button
-        className="check-btn"
-        onClick={() => marcarComoLeido(obs.id)}
-        title="Marcar como leído"
-      >
-        ⬜ No leído
-      </button>
-    </>
-  )}
-</td>
+                {obs.estado === 'Leído' ? (
+                  <span className="check-btn checked">✅ Leído</span>
+                ) : (
+                  <button
+                    className="check-btn"
+                    onClick={() => marcarComoLeido(obs.id)}
+                    title="Marcar como leído"
+                  >
+                    ⬜ No leído
+                  </button>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
