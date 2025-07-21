@@ -107,20 +107,21 @@ const MisMensajes = () => {
           {observaciones.map((obs) => (
             <tr key={obs.id}>
               <td>{new Date(obs.fecha).toLocaleString()}</td>
-              <td>{obs.mensaje}</td>
               <td>
-                {obs.estado === 'Leído' ? (
-                  <span className="check-btn checked">✅</span>
-                ) : (
-                  <button
-                    className="check-btn"
-                    onClick={() => marcarComoLeido(obs.id)}
-                    title="Marcar como leído"
-                  >
-                    ⬜
-                  </button>
-                )}
-              </td>
+  {obs.estado === 'Leído' ? (
+    <span className="check-btn checked">✅ Leído</span>
+  ) : (
+    <>
+      <button
+        className="check-btn"
+        onClick={() => marcarComoLeido(obs.id)}
+        title="Marcar como leído"
+      >
+        ⬜ No leído
+      </button>
+    </>
+  )}
+</td>
             </tr>
           ))}
         </tbody>
