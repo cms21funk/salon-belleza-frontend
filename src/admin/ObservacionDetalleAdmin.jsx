@@ -85,13 +85,18 @@ const ObservacionDetalleAdmin = () => {
 
   if (!profesional) return <p className="text-white">Cargando...</p>;
 
+  // ✅ Corrección: definir la ruta completa de imagen correctamente
+  const urlImagen = profesional.imagen?.startsWith('http')
+    ? profesional.imagen
+    : `${BASE_URL}/images/${profesional.imagen}`;
+
   return (
     <div className="container py-5 text-white">
       <h2 className="mb-4 text-center">Observaciones para {profesional.nombre}</h2>
       <div className="d-flex justify-content-center mb-4">
         <div className="card-staff text-white text-center">
           <img
-            src={`${BASE_URL}/images/${profesional.imagen}`}
+            src={urlImagen}
             className="card-img-top"
             alt={profesional.nombre}
             style={{ height: '200px', objectFit: 'cover', borderRadius: '12px' }}
