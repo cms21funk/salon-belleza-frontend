@@ -8,13 +8,15 @@ const MisMensajes = () => {
   const [feedback, setFeedback] = useState([]);
   const [likesPorTrabajo, setLikesPorTrabajo] = useState([]);
 
-  // Cargar observaciones, feedback y likes desde el backend
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'https://salon-belleza-backend.onrender.com';
+
+  // Cargar datos desde el backend
   const cargarDatos = useCallback(async () => {
     try {
       const [obsRes, feedRes, likesRes] = await Promise.all([
-        fetch(`http://localhost:3000/api/observaciones/${usuario.id}`),
-        fetch(`http://localhost:3000/api/feedback/staff/${usuario.id}`),
-        fetch(`http://localhost:3000/api/likes/staff/${usuario.id}`)
+        fetch(`${BASE_URL}/api/observaciones/${usuario.id}`),
+        fetch(`${BASE_URL}/api/feedback/staff/${usuario.id}`),
+        fetch(`${BASE_URL}/api/likes/staff/${usuario.id}`)
       ]);
 
       const obsData = await obsRes.json();
@@ -29,26 +31,23 @@ const MisMensajes = () => {
     }
   }, [usuario.id]);
 
-  // Marcar un mensaje como leído
   const marcarComoLeido = async (id) => {
     try {
-      await fetch(`http://localhost:3000/api/observaciones/leido/${id}`, {
+      await fetch(`${BASE_URL}/api/observaciones/leido/${id}`, {
         method: 'PUT'
       });
-      cargarDatos(); // Actualizar datos luego de marcar como leído
+      cargarDatos(); // Recargar tras marcar como leído
     } catch (error) {
       console.error('Error al marcar como leído', error);
     }
   };
 
-  // Ejecutar carga de datos al iniciar el componente
   useEffect(() => {
     if (usuario?.rol === 'staff') {
       cargarDatos();
     }
   }, [usuario, cargarDatos]);
 
-  // Cálculos de resumen
   const totalLikes = feedback.filter(f => f.like).length;
   const totalDislikes = feedback.filter(f => f.dislike).length;
   const promedioEstrellas = feedback.length
@@ -59,7 +58,6 @@ const MisMensajes = () => {
     <div className="container text-white py-5">
       <h2 className="text-center mb-5">Mis Mensajes</h2>
 
-      {/* Perfil del staff con resumen de desempeño */}
       <div className="perfil-contenedor">
         <div className="perfil-info">
           <h3>{usuario.nombre}</h3>
@@ -82,17 +80,15 @@ const MisMensajes = () => {
           </ul>
         </div>
 
-        {/* Imagen de perfil (usar Cloudinary u otra URL completa directamente) */}
         <div>
           <img
-            src={usuario.imagen}
+            src={usuario.imagen || '/default-profile.png'}
             alt="Perfil"
             className="perfil-foto"
           />
         </div>
       </div>
 
-      {/* Tabla de mensajes recibidos */}
       <h4 className="mt-5">Historial de mensajes:</h4>
       <table className="table table-dark table-hover mt-3">
         <thead>
