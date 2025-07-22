@@ -1,19 +1,18 @@
-// src/admin/TopRankingAdmin.jsx
 import { useEffect, useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip,
   ResponsiveContainer, CartesianGrid
 } from 'recharts';
 
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+
 const TopRankingAdmin = () => {
-  // Estado para almacenar los productos más populares por likes
   const [ranking, setRanking] = useState([]);
 
-  // Obtener datos del backend al montar componente
   useEffect(() => {
     const obtenerRanking = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/likes-productos/populares');
+        const res = await fetch(`${BASE_URL}/api/productos/populares`);
         const data = await res.json();
         setRanking(data);
       } catch (error) {
@@ -28,7 +27,6 @@ const TopRankingAdmin = () => {
     <div className="container py-5 text-white">
       <h2 className="mb-4">Ranking Top 10 - Productos con más Likes ❤️</h2>
 
-      {/* Tabla de productos con más likes */}
       <div className="table-responsive mb-5">
         <table className="table table-dark table-striped">
           <thead>
@@ -46,7 +44,7 @@ const TopRankingAdmin = () => {
                 <td>{i + 1}</td>
                 <td>
                   <img
-                    src={`http://localhost:3000/images/${item.imagen}`}
+                    src={item.imagen}
                     alt={item.producto_nombre}
                     width="40"
                     height="40"
@@ -62,7 +60,6 @@ const TopRankingAdmin = () => {
         </table>
       </div>
 
-      {/* Gráfico de barras - Productos más populares */}
       <h4 className="mb-3">Gráfico de Productos Populares</h4>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart
